@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puja AI — Farm Device Selector</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage: #4a7c59;
+    --sage-light: #d4e8da;
+    --sage-mid: #7aaa8a;
+    --earth: #8b5e3c;
+    --earth-light: #f5ede6;
+    --cream: #faf8f3;
+    --ink: #1c1c1a;
+    --ink-muted: #5a5a54;
+    --ink-faint: #9a9a92;
+    --surface: #ffffff;
+    --border: rgba(28,28,26,0.1);
+    --border-strong: rgba(28,28,26,0.2);
+    --puja-bubble: #f0f6f2;
+    --user-bubble: #1c1c1a;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .brand-tag {
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f0f6f2;
+    border: 1px solid #c8dece;
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 500;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--sage);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── MAIN ── */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* ── CHAT ── */
+  #chat-container {
+    flex: 1;
+    padding: 2rem 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-height: calc(100vh - 68px - 160px);
+    overflow-y: auto;
+  }
+
+  .message-row {
+    display: flex;
+    gap: 12px;
+    animation: fadeUp 0.35s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .message-row.user {
+    flex-direction: row-reverse;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .avatar.puja {
+    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
+    color: white;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .avatar.user {
+    background: var(--earth-light);
+    color: var(--earth);
+  }
+
+  .bubble-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 78%;
+  }
+
+  .message-row.user .bubble-wrap {
+    align-items: flex-end;
+  }
+
+  .bubble {
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--puja-bubble);
+    border: 1px solid var(--border);
+  }
+
+  .message-row.user .bubble {
+    background: var(--user-bubble);
+    color: white;
+    border-color: transparent;
+    border-bottom-right-radius: 4px;
+  }
+
+  .bubble.puja {
+    border-bottom-left-radius: 4px;
+  }
+
+  .bubble strong {
+    font-weight: 600;
+    color: var(--sage);
+  }
+
+  .message-row.user .bubble strong {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .sender-label {
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 0 4px;
+  }
+
+  /* ── OPTIONS BUTTONS ── */
+  .options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .option-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 100px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .option-btn:hover {
+    border-color: var(--sage);
+    background: var(--sage-light);
+    color: var(--sage);
+    transform: translateY(-1px);
+  }
+
+  .option-btn:active {
+    transform: translateY(0);
+  }
+
+  .option-btn.selected {
+    border-color: var(--sage);
+    background: var(--sage);
+    color: white;
+  }
+
+  /* ── TEXT INPUT INLINE ── */
+  .inline-input-wrap {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .inline-input {
+    flex: 1;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 100px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .inline-input:focus {
+    border-color: var(--sage);
+  }
+
+  .inline-input::placeholder {
+    color: var(--ink-faint);
+  }
+
+  .inline-submit {
+    background: var(--sage);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 9px 20px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .inline-submit:hover {
+    background: #3d6b4a;
+  }
+
+  /* ── RESULT CARD ── */
+  .result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
+  .result-header {
+    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
+    padding: 20px 24px;
+    color: white;
+  }
+
+  .result-device {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  .result-sub {
+    font-size: 13px;
+    opacity: 0.8;
+    margin-top: 4px;
+  }
+
+  .result-body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .metric-box {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+
+  .metric-val {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--sage);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .metric-label {
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .confidence-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .confidence-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .confidence-bar {
+    height: 8px;
+    background: var(--sage-light);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sage) 0%, var(--sage-mid) 100%);
+    border-radius: 100px;
+    transition: width 1s ease;
+  }
+
+  .result-explanation {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-muted);
+    background: var(--earth-light);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 11px 16px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    border: 1.5px solid;
+  }
+
+  .action-btn.primary {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage);
+  }
+
+  .action-btn.primary:hover { background: #3d6b4a; }
+
+  .action-btn.secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--border-strong);
+  }
+
+  .action-btn.secondary:hover {
+    background: var(--sage-light);
+    border-color: var(--sage);
+    color: var(--sage);
+  }
+
+  /* ── TYPING INDICATOR ── */
+  .typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    background: var(--puja-bubble);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+  }
+
+  .typing-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--sage-mid);
+    border-radius: 50%;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+  }
+
+  /* ── INPUT BAR ── */
+  #input-bar {
+    position: sticky;
+    bottom: 0;
+    background: var(--cream);
+    padding: 1rem 0 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: 100px;
+    padding: 8px 8px 8px 20px;
+    transition: border-color 0.2s;
+  }
+
+  .input-row:focus-within {
+    border-color: var(--sage);
+  }
+
+  #user-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: transparent;
+  }
+
+  #user-input::placeholder { color: var(--ink-faint); }
+
+  #send-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--sage);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+
+  #send-btn:hover { background: #3d6b4a; }
+  #send-btn:active { transform: scale(0.95); }
+
+  #send-btn svg { width: 18px; height: 18px; }
+
+  .input-hint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── DIVIDER ── */
+  .chat-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 4px;
+  }
+
+  .chat-divider span {
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+
+  .chat-divider::before, .chat-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 0 1rem; }
+    .metrics-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-logo">P</div>
+    <div class="brand-text">
+      <span class="brand-name">Puja AI</span>
+      <span class="brand-tag">Farm Device Advisor</span>
+    </div>
+  </div>
+  <div class="status-pill">
+    <div class="status-dot"></div>
+    Online
+  </div>
+</header>
+
+<main>
+  <div id="chat-container"></div>
+  <div id="input-bar">
+    <div class="input-row">
+      <input id="user-input" type="text" placeholder="Type a message or select an option above..." autocomplete="off" />
+      <button id="send-btn" onclick="handleSend()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+    <p class="input-hint">Puja AI · Powered by Anthropic · Farm device recommendations only</p>
+  </div>
+</main>
+
+<script>
+const PUMP_DB = {
+  SHAKTI: {
+    MONOBLOCK: { "0.5": {ratedHead:20,ratedDischarge:60}, "1": {ratedHead:30,ratedDischarge:80}, "1.5": {ratedHead:35,ratedDischarge:100}, "2": {ratedHead:40,ratedDischarge:130}, "3": {ratedHead:50,ratedDischarge:160} },
+    SUBMERSIBLE: { "0.5": {ratedHead:40,ratedDischarge:40}, "1": {ratedHead:55,ratedDischarge:60}, "1.5": {ratedHead:70,ratedDischarge:80}, "2": {ratedHead:90,ratedDischarge:100}, "3": {ratedHead:110,ratedDischarge:130}, "5": {ratedHead:150,ratedDischarge:180} }
+  },
+  TEXMO: {
+    MONOBLOCK: { "0.5": {ratedHead:18,ratedDischarge:55}, "1": {ratedHead:28,ratedDischarge:75}, "1.5": {ratedHead:33,ratedDischarge:95}, "2": {ratedHead:38,ratedDischarge:120}, "3": {ratedHead:48,ratedDischarge:150} },
+    SUBMERSIBLE: { "0.5": {ratedHead:38,ratedDischarge:38}, "1": {ratedHead:52,ratedDischarge:58}, "1.5": {ratedHead:65,ratedDischarge:75}, "2": {ratedHead:85,ratedDischarge:95}, "3": {ratedHead:105,ratedDischarge:125}, "5": {ratedHead:145,ratedDischarge:170} }
+  },
+  KIRLOSKAR: {
+    MONOBLOCK: { "0.5": {ratedHead:22,ratedDischarge:65}, "1": {ratedHead:32,ratedDischarge:85}, "1.5": {ratedHead:38,ratedDischarge:105}, "2": {ratedHead:44,ratedDischarge:135}, "3": {ratedHead:55,ratedDischarge:165} },
+    SUBMERSIBLE: { "0.5": {ratedHead:42,ratedDischarge:42}, "1": {ratedHead:58,ratedDischarge:62}, "1.5": {ratedHead:75,ratedDischarge:85}, "2": {ratedHead:95,ratedDischarge:105}, "3": {ratedHead:115,ratedDischarge:135}, "5": {ratedHead:155,ratedDischarge:185} }
+  },
+  OSWAL: {
+    MONOBLOCK: { "0.5": {ratedHead:19,ratedDischarge:58}, "1": {ratedHead:29,ratedDischarge:78}, "1.5": {ratedHead:34,ratedDischarge:98}, "2": {ratedHead:39,ratedDischarge:125}, "3": {ratedHead:49,ratedDischarge:155} },
+    SUBMERSIBLE: { "0.5": {ratedHead:39,ratedDischarge:39}, "1": {ratedHead:53,ratedDischarge:59}, "1.5": {ratedHead:67,ratedDischarge:77}, "2": {ratedHead:87,ratedDischarge:97}, "3": {ratedHead:107,ratedDischarge:127}, "5": {ratedHead:147,ratedDischarge:172} }
+  }
+};
+
+const FRICTION_FACTORS = { "1": 0.12, "1.5": 0.07, "2": 0.04 };
+
+const state = {
+  step: "start",
+  pumpType: null,
+  brand: null,
+  hp: null,
+  pumpData: null,
+  boreDepth: null,
+  distance: null,
+  pipeDiameter: null,
+  assumptions: [],
+  conversationHistory: []
+};
+
+const chat = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+
+function normalizeBrand(raw) {
+  const r = raw.toLowerCase().trim();
+  if (r.includes("shakti") || r.includes("shakthi")) return "SHAKTI";
+  if (r.includes("texmo") || r.includes("taro")) return "TEXMO";
+  if (r.includes("kirloskar")) return "KIRLOSKAR";
+  if (r.includes("oswal")) return "OSWAL";
+  return null;
+}
+
+function getPumpData(brand, type, hp) {
+  const db = PUMP_DB[brand]?.[type];
+  if (!db) return null;
+  if (db[hp]) return { ...db[hp], exact: true };
+  const hpNum = parseFloat(hp);
+  const keys = Object.keys(db).map(Number).sort((a,b)=>a-b);
+  let closest = keys.reduce((a,b) => Math.abs(b-hpNum) < Math.abs(a-hpNum) ? b : a);
+  return { ...db[closest.toString()], exact: false, usedHp: closest };
+}
+
+function calcTDH(boreDepth, distance, pipeDia) {
+  const staticHead = boreDepth;
+  const totalLength = boreDepth + distance;
+  const frictionLoss = totalLength * FRICTION_FACTORS[pipeDia];
+  const minorLoss = (staticHead + frictionLoss) * 0.10;
+  return { tdh: staticHead + frictionLoss + minorLoss, staticHead, frictionLoss, minorLoss };
+}
+
+function calcDischarge(tdh, pumpData) {
+  const ratio = tdh / pumpData.ratedHead;
+  let factor;
+  if (ratio < 0.9) factor = 1.05;
+  else if (ratio <= 1.1) factor = 1.0;
+  else factor = Math.max(0.5, 1 - (ratio - 1.1) * 0.8);
+  return pumpData.ratedDischarge * factor;
+}
+
+function getDevice(lph) {
+  if (lph <= 9000) return { name: "Vipassa", size: '1"', link: "#vipassa" };
+  if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "#jhanavi" };
+  if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "#dihanga" };
+  return null;
+}
+
+function calcConfidence() {
+  let score = 100;
+  for (const a of state.assumptions) {
+    if (a === "model_assumed") score -= 15;
+    if (a === "bore_estimated") score -= 10;
+    if (a === "pipe_estimated") score -= 10;
+    if (a === "distance_estimated") score -= 10;
+    if (a === "tdh_exceeds") score -= 15;
+  }
+  return Math.max(0, score);
+}
+
+function confidenceLabel(s) {
+  if (s >= 85) return "High Confidence";
+  if (s >= 70) return "Medium Confidence";
+  return "Low — please verify inputs";
+}
+
+// ── RENDER HELPERS ──
+
+function addMessage(role, html) {
+  const row = document.createElement("div");
+  row.className = `message-row ${role}`;
+
+  const av = document.createElement("div");
+  av.className = `avatar ${role}`;
+  av.textContent = role === "puja" ? "P" : "U";
+
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+
+  const label = document.createElement("span");
+  label.className = "sender-label";
+  label.textContent = role === "puja" ? "Puja AI" : "You";
+
+  const bubble = document.createElement("div");
+  bubble.className = `bubble ${role}`;
+  bubble.innerHTML = html;
+
+  wrap.appendChild(label);
+  wrap.appendChild(bubble);
+  row.appendChild(av);
+  row.appendChild(wrap);
+  chat.appendChild(row);
+  scrollBottom();
+  return bubble;
+}
+
+function addOptions(options, onSelect) {
+  const row = document.createElement("div");
+  row.className = "message-row puja";
+
+  const av = document.createElement("div");
+  av.className = "avatar puja";
+  av.textContent = "P";
+
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+
+  const grid = document.createElement("div");
+  grid.className = "options-grid";
+
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.textContent = opt.label || opt;
+    btn.onclick = () => {
+      document.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
+      btn.classList.add("selected");
+      const val = opt.value !== undefined ? opt.value : opt;
+      addMessage("user", val);
+      setTimeout(() => onSelect(val, opt), 300);
+    };
+    grid.appendChild(btn);
+  });
+
+  wrap.appendChild(grid);
+  row.appendChild(av);
+  row.appendChild(wrap);
+  chat.appendChild(row);
+  scrollBottom();
+}
+
+function addInlineInput(placeholder, unit, onSubmit) {
+  const row = document.createElement("div");
+  row.className = "message-row puja";
+
+  const av = document.createElement("div");
+  av.className = "avatar puja";
+  av.textContent = "P";
+
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+
+  const iwrap = document.createElement("div");
+  iwrap.className = "inline-input-wrap";
+
+  const inp = document.createElement("input");
+  inp.className = "inline-input";
+  inp.type = "text";
+  inp.placeholder = placeholder;
+
+  const btn = document.createElement("button");
+  btn.className = "inline-submit";
+  btn.textContent = "Submit";
+
+  const submit = () => {
+    const v = inp.value.trim();
+    if (!v) return;
+    inp.disabled = true;
+    btn.disabled = true;
+    addMessage("user", v + (unit ? " " + unit : ""));
+    onSubmit(v);
+  };
+
+  btn.onclick = submit;
+  inp.onkeydown = e => { if (e.key === "Enter") submit(); };
+
+  iwrap.appendChild(inp);
+  iwrap.appendChild(btn);
+  wrap.appendChild(iwrap);
+  row.appendChild(av);
+  row.appendChild(wrap);
+  chat.appendChild(row);
+  scrollBottom();
+  setTimeout(() => inp.focus(), 100);
+}
+
+function showTyping() {
+  const row = document.createElement("div");
+  row.className = "message-row puja";
+  row.id = "typing-row";
+
+  const av = document.createElement("div");
+  av.className = "avatar puja";
+  av.textContent = "P";
+
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+
+  const ind = document.createElement("div");
+  ind.className = "typing-indicator";
+  for (let i = 0; i < 3; i++) {
+    const d = document.createElement("div");
+    d.className = "typing-dot";
+    ind.appendChild(d);
+  }
+
+  wrap.appendChild(ind);
+  row.appendChild(av);
+  row.appendChild(wrap);
+  chat.appendChild(row);
+  scrollBottom();
+}
+
+function hideTyping() {
+  const t = document.getElementById("typing-row");
+  if (t) t.remove();
+}
+
+function scrollBottom() {
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addDivider(text) {
+  const d = document.createElement("div");
+  d.className = "chat-divider";
+  d.innerHTML = `<span>${text}</span>`;
+  chat.appendChild(d);
+}
+
+// ── FLOW ──
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function pujaSpeak(html, ms = 700) {
+  showTyping();
+  await delay(ms);
+  hideTyping();
+  return addMessage("puja", html);
+}
+
+async function startFlow() {
+  await delay(500);
+  await pujaSpeak(`Namaste! 🌿 I'm <strong>Puja AI</strong>, your smart farm device advisor.<br><br>I'll help you find the perfect irrigation device for your field — just answer a few questions and I'll calculate the right recommendation with a confidence score.`);
+  await delay(400);
+  await pujaSpeak(`Let's begin. What type of pump are you using?`);
+  addOptions(["Monoblock", "Submersible"], async (val) => {
+    state.pumpType = val.toUpperCase();
+    await askBrandHP();
+  });
+}
+
+async function askBrandHP() {
+  await pujaSpeak(`Great — a <strong>${state.pumpType}</strong> pump. Now, what's the brand and horsepower (HP)?<br><br>Please type something like <em>"Shakti 2 HP"</em> or <em>"Kirloskar 3HP"</em>.`, 800);
+  state.step = "brand_hp";
+  userInput.placeholder = "e.g. Shakti 2 HP or Kirloskar 3HP";
+  userInput.focus();
+}
+
+function parseBrandHP(text) {
+  const brand = normalizeBrand(text);
+  const hpMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:hp|HP|h\.p|h\.p\.)?/);
+  const hp = hpMatch ? hpMatch[1] : null;
+  return { brand, hp };
+}
+
+async function handleBrandHP(text) {
+  const { brand, hp } = parseBrandHP(text);
+
+  if (!brand) {
+    await pujaSpeak(`I didn't quite catch the brand. Could you mention one of: <strong>Shakti, Texmo, Kirloskar, or Oswal</strong>?`);
+    return;
+  }
+
+  if (!hp) {
+    await pujaSpeak(`Got <strong>${brand}</strong>! What's the horsepower (HP) of the pump?`);
+    state.brand = brand;
+    state.step = "hp_only";
+    return;
+  }
+
+  state.brand = brand;
+  state.hp = hp;
+  await resolvePump();
+}
+
+async function handleHPOnly(text) {
+  const hpMatch = text.match(/(\d+(?:\.\d+)?)/);
+  if (!hpMatch) {
+    await pujaSpeak(`Please enter a number, like <strong>2</strong> or <strong>1.5</strong>.`);
+    return;
+  }
+  state.hp = hpMatch[1];
+  await resolvePump();
+}
+
+async function resolvePump() {
+  const data = getPumpData(state.brand, state.pumpType, state.hp);
+
+  if (!data) {
+    await pujaSpeak(`I couldn't find a match for <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> in my database. Let me ask a couple of quick clarifying questions.`);
+    await askPumpClarify();
+    return;
+  }
+
+  if (!data.exact) {
+    state.assumptions.push("model_assumed");
+    await pujaSpeak(`I found the closest match — <strong>${state.brand} ${data.usedHp} HP ${state.pumpType}</strong> (assumed, since exact model wasn't found). Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+  } else {
+    await pujaSpeak(`Found it! <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> — Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+  }
+
+  state.pumpData = data;
+  addDivider("Field Information");
+  await delay(300);
+  await askBoreDepth();
+}
+
+async function askPumpClarify() {
+  await pujaSpeak(`To find the closest pump data, is your pump a:`);
+  addOptions(["High pressure pump", "High discharge pump", "I have the model number"], async (val) => {
+    if (val === "I have the model number") {
+      await pujaSpeak(`Please type the model number:`);
+      state.step = "model_number";
+    } else {
+      state.assumptions.push("model_assumed");
+      const hp = parseFloat(state.hp) || 2;
+      const ratedHead = val.includes("pressure") ? hp * 40 : hp * 25;
+      const ratedDischarge = val.includes("pressure") ? hp * 35 : hp * 60;
+      state.pumpData = { ratedHead, ratedDischarge, exact: false };
+      await pujaSpeak(`Using estimated specs — Rated head: <strong>${ratedHead} m</strong>, Discharge: <strong>${ratedDischarge} LPM</strong>.`);
+      addDivider("Field Information");
+      await askBoreDepth();
+    }
+  });
+}
+
+async function askBoreDepth() {
+  await pujaSpeak(`What is the <strong>bore depth</strong> (depth of your borewell)?`, 600);
+  addOptions([{label:"60 m", value:"60"},{label:"90 m", value:"90"},{label:"120 m", value:"120"},{label:"150 m", value:"150"},{label:"Other", value:"other"}], async (val) => {
+    if (val === "other") {
+      await pujaSpeak(`Please type the exact bore depth in metres:`);
+      addInlineInput("e.g. 135", "m", async (v) => {
+        const n = parseFloat(v);
+        if (isNaN(n)) { await pujaSpeak(`Please enter a number in metres.`); return; }
+        state.boreDepth = n;
+        await askDistance();
+      });
+    } else {
+      state.boreDepth = parseFloat(val);
+      await askDistance();
+    }
+  });
+}
+
+async function askDistance() {
+  await pujaSpeak(`What is the <strong>distance from the pump to the field</strong>?`, 600);
+  addOptions([{label:"50 m", value:"50"},{label:"100 m", value:"100"},{label:"150 m", value:"150"},{label:"200 m", value:"200"},{label:"Other", value:"other"}], async (val) => {
+    if (val === "other") {
+      await pujaSpeak(`Type the distance in metres:`);
+      addInlineInput("e.g. 75", "m", async (v) => {
+        const n = parseFloat(v);
+        if (isNaN(n)) { await pujaSpeak(`Please enter a number.`); return; }
+        state.distance = n;
+        await askPipeDia();
+      });
+    } else {
+      state.distance = parseFloat(val);
+      await askPipeDia();
+    }
+  });
+}
+
+async function askPipeDia() {
+  await pujaSpeak(`What is the <strong>pipe diameter</strong>?`, 600);
+  addOptions(["1 inch", "1.5 inch", "2 inch"], async (val) => {
+    const match = val.match(/[\d.]+/);
+    state.pipeDiameter = match ? match[0] : "1.5";
+    addDivider("Calculating...");
+    await computeAndShow();
+  });
+}
+
+async function computeAndShow() {
+  showTyping();
+  await delay(1800);
+  hideTyping();
+
+  const { tdh, staticHead, frictionLoss, minorLoss } = calcTDH(state.boreDepth, state.distance, state.pipeDiameter);
+  const tdhRatio = tdh / state.pumpData.ratedHead;
+  if (tdhRatio > 1.1) state.assumptions.push("tdh_exceeds");
+
+  const dischargePerMin = calcDischarge(tdh, state.pumpData);
+  const lph = Math.round(dischargePerMin * 60);
+
+  const device = getDevice(lph);
+  const confidence = calcConfidence();
+  const confLabel = confidenceLabel(confidence);
+
+  if (!device) {
+    await pujaSpeak(`⚠️ The calculated flow of <strong>${lph.toLocaleString()} LPH</strong> exceeds 50,000 LPH. This requires a <strong>manual engineering review</strong>. Please contact our team for a custom solution.`);
+    return;
+  }
+
+  let perfNote = "";
+  if (tdhRatio < 0.9) perfNote = "Pump is operating <strong>below rated head</strong> — good performance expected.";
+  else if (tdhRatio <= 1.1) perfNote = "TDH is <strong>near rated head</strong> — moderate performance.";
+  else perfNote = "TDH <strong>exceeds rated head</strong> — reduced discharge is expected.";
+
+  const card = document.createElement("div");
+  card.className = "message-row puja";
+  card.innerHTML = `
+    <div class="avatar puja">P</div>
+    <div class="bubble-wrap" style="max-width:90%">
+      <span class="sender-label">Puja AI — Recommendation</span>
+      <div class="result-card">
+        <div class="result-header">
+          <div class="result-device">${device.name} <span style="opacity:.7;font-size:18px">${device.size}</span></div>
+          <div class="result-sub">Recommended farm irrigation device</div>
+        </div>
+        <div class="result-body">
+          <div class="metrics-row">
+            <div class="metric-box">
+              <div class="metric-val">${lph.toLocaleString()}</div>
+              <div class="metric-label">LPH Flow</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">${Math.round(tdh)} m</div>
+              <div class="metric-label">Total Head</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">${confidence}%</div>
+              <div class="metric-label">${confLabel}</div>
+            </div>
+          </div>
+          <div class="confidence-bar-wrap">
+            <div class="confidence-label-row">
+              <span>Confidence Score</span>
+              <span style="font-weight:600;color:var(--sage)">${confidence}% — ${confLabel}</span>
+            </div>
+            <div class="confidence-bar">
+              <div class="confidence-fill" style="width:${confidence}%"></div>
+            </div>
+          </div>
+          <div class="result-explanation">
+            <strong>How we got here:</strong> Your borewell static head is ${Math.round(staticHead)} m, friction loss is ${Math.round(frictionLoss)} m, and minor losses add ${Math.round(minorLoss)} m — giving a Total Dynamic Head (TDH) of ${Math.round(tdh)} m. ${perfNote} Effective discharge is <strong>${lph.toLocaleString()} LPH</strong>, which matches the <strong>${device.name}</strong>.
+          </div>
+          <div class="result-actions">
+            <button class="action-btn primary" onclick="orderDevice('${device.name}', '${device.link}')">Order ${device.name}</button>
+            <button class="action-btn secondary" onclick="askMoreQuestions()">Ask more questions</button>
+            <button class="action-btn secondary" onclick="restartFlow()">Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  chat.appendChild(card);
+  scrollBottom();
+
+  state.step = "done";
+  userInput.placeholder = "Ask a follow-up question...";
+}
+
+function orderDevice(name, link) {
+  addMessage("user", `I'd like to order the ${name}`);
+  pujaSpeak(`Excellent choice! 🌿 Redirecting you to the <strong>${name}</strong> order page. Our team will get in touch with you shortly to confirm the details and arrange delivery.`, 800);
+}
+
+function askMoreQuestions() {
+  addMessage("user", "I have more questions");
+  pujaSpeak(`Of course! Feel free to ask me anything about the recommendation, the device specifications, or your field setup. I'm here to help.`);
+  state.step = "freeform";
+  userInput.placeholder = "Ask me anything...";
+  userInput.focus();
+}
+
+function restartFlow() {
+  addMessage("user", "Start over");
+  Object.assign(state, { step:"start", pumpType:null, brand:null, hp:null, pumpData:null, boreDepth:null, distance:null, pipeDiameter:null, assumptions:[], conversationHistory:[] });
+  addDivider("New Session");
+  startFlow();
+}
+
+// ── FREEFORM AI ──
+
+async function handleFreeform(text) {
+  showTyping();
+  state.conversationHistory.push({ role: "user", content: text });
+
+  const context = `You are Puja AI, a friendly and knowledgeable farm device advisor. The user has completed a device recommendation session with these results:
+- Pump: ${state.brand || "unknown"} ${state.hp || ""}HP ${state.pumpType || ""}
+- Bore depth: ${state.boreDepth}m, Distance: ${state.distance}m, Pipe: ${state.pipeDiameter} inch
+- Recommended device: based on calculated flow
+Answer their follow-up question helpfully and concisely. Stay focused on farm irrigation and the Puja AI product line (Vipassa 1", Jhanavi 2", Dihanga 3").`;
+
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: context,
+        messages: state.conversationHistory
+      })
+    });
+    const data = await res.json();
+    const reply = data.content?.map(b => b.text || "").join("") || "I'm not sure — please try rephrasing.";
+    state.conversationHistory.push({ role: "assistant", content: reply });
+    hideTyping();
+    addMessage("puja", reply.replace(/\n/g, "<br>"));
+  } catch(e) {
+    hideTyping();
+    addMessage("puja", "Sorry, I couldn't reach the AI right now. Please try again in a moment.");
+  }
+}
+
+// ── SEND HANDLER ──
+
+async function handleSend() {
+  const text = userInput.value.trim();
+  if (!text) return;
+  userInput.value = "";
+
+  if (state.step === "brand_hp") {
+    addMessage("user", text);
+    await handleBrandHP(text);
+  } else if (state.step === "hp_only") {
+    addMessage("user", text);
+    await handleHPOnly(text);
+  } else if (state.step === "model_number") {
+    addMessage("user", text);
+    state.assumptions.push("model_assumed");
+    const hp = parseFloat(state.hp) || 2;
+    state.pumpData = { ratedHead: hp * 30, ratedDischarge: hp * 45, exact: false };
+    await pujaSpeak(`Using estimated specs for model <strong>${text}</strong>.`);
+    addDivider("Field Information");
+    await askBoreDepth();
+  } else if (state.step === "freeform" || state.step === "done") {
+    addMessage("user", text);
+    state.step = "freeform";
+    await handleFreeform(text);
+  } else {
+    addMessage("user", text);
+    await pujaSpeak(`Please use the option buttons above to navigate, or wait for the current step to complete.`);
+  }
+}
+
+userInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") handleSend();
+});
+
+// ── INIT ──
+startFlow();
+</script>
+</body>
+</html>
