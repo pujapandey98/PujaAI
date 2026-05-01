@@ -673,12 +673,9 @@ function calcTDH(boreDepth, distance, pipeDia) {
 }
 
 function calcDischarge(tdh, pumpData) {
-  const ratio = tdh / pumpData.ratedHead;
-  let factor;
-  if (ratio < 0.9) factor = 1.05;
-  else if (ratio <= 1.1) factor = 1.0;
-  else factor = Math.max(0.5, 1 - (ratio - 1.1) * 0.8);
-  return pumpData.ratedDischarge * factor;
+  if (tdh <= 0) return pumpData.ratedDischarge;
+  const ratio = pumpData.ratedHead / tdh;
+  return pumpData.ratedDischarge * Math.min(ratio, 1.1);
 }
 
 function getDevice(lph) {
@@ -732,7 +729,7 @@ function addMessage(role, html) {
   row.appendChild(av);
   row.appendChild(wrap);
   chat.appendChild(row);
-  scrollBottom();
+  scrollBottom(row);
   return bubble;
 }
 
@@ -768,7 +765,7 @@ function addOptions(options, onSelect) {
   row.appendChild(av);
   row.appendChild(wrap);
   chat.appendChild(row);
-  scrollBottom();
+  scrollBottom(row);
 }
 
 function addInlineInput(placeholder, unit, onSubmit) {
@@ -812,8 +809,82 @@ function addInlineInput(placeholder, unit, onSubmit) {
   row.appendChild(av);
   row.appendChild(wrap);
   chat.appendChild(row);
-  scrollBottom();
+  scrollBottom(row);
   setTimeout(() => inp.focus(), 100);
+}
+
+function addOptionsWithTextInput(options, placeholder, onSubmit) {
+  const row = document.createElement("div");
+  row.className = "message-row puja";
+
+  const av = document.createElement("div");
+  av.className = "avatar puja";
+  av.textContent = "P";
+
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+
+  const grid = document.createElement("div");
+  grid.className = "options-grid";
+
+  let submitted = false;
+
+  const doSubmit = (val, displayVal) => {
+    if (submitted) return;
+    submitted = true;
+    grid.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
+    inp.disabled = true;
+    submitBtn.disabled = true;
+    addMessage("user", displayVal || val);
+    setTimeout(() => onSubmit(val), 300);
+  };
+
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.textContent = opt.label || opt;
+    btn.onclick = () => {
+      btn.classList.add("selected");
+      doSubmit(opt.value !== undefined ? opt.value : opt, opt.label || opt);
+    };
+    grid.appendChild(btn);
+  });
+
+  const divider = document.createElement("div");
+  divider.style.cssText = "display:flex;align-items:center;gap:8px;margin:6px 0 2px;";
+  divider.innerHTML = `<div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:11px;color:var(--ink-faint);white-space:nowrap">or type below</span><div style="flex:1;height:1px;background:var(--border)"></div>`;
+
+  const iwrap = document.createElement("div");
+  iwrap.className = "inline-input-wrap";
+
+  const inp = document.createElement("input");
+  inp.className = "inline-input";
+  inp.type = "text";
+  inp.placeholder = placeholder;
+
+  const submitBtn = document.createElement("button");
+  submitBtn.className = "inline-submit";
+  submitBtn.textContent = "Submit";
+
+  const trySubmitText = () => {
+    const v = inp.value.trim();
+    if (!v) return;
+    doSubmit(v, v);
+  };
+
+  submitBtn.onclick = trySubmitText;
+  inp.onkeydown = e => { if (e.key === "Enter") trySubmitText(); };
+
+  iwrap.appendChild(inp);
+  iwrap.appendChild(submitBtn);
+
+  wrap.appendChild(grid);
+  wrap.appendChild(divider);
+  wrap.appendChild(iwrap);
+  row.appendChild(av);
+  row.appendChild(wrap);
+  chat.appendChild(row);
+  scrollBottom(row);
 }
 
 function showTyping() {
@@ -848,8 +919,9 @@ function hideTyping() {
   if (t) t.remove();
 }
 
-function scrollBottom() {
-  chat.scrollTop = chat.scrollHeight;
+function scrollBottom(targetEl) {
+  const el = targetEl || chat.lastElementChild;
+  if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60);
 }
 
 function addDivider(text) {
@@ -857,6 +929,7 @@ function addDivider(text) {
   d.className = "chat-divider";
   d.innerHTML = `<span>${text}</span>`;
   chat.appendChild(d);
+  scrollBottom(d);
 }
 
 // ── FLOW ──
@@ -882,10 +955,33 @@ async function startFlow() {
 }
 
 async function askBrandHP() {
-  await pujaSpeak(`Great — a <strong>${state.pumpType}</strong> pump. Now, what's the brand and horsepower (HP)?<br><br>Please type something like <em>"Shakti 2 HP"</em> or <em>"Kirloskar 3HP"</em>.`, 800);
-  state.step = "brand_hp";
-  userInput.placeholder = "e.g. Shakti 2 HP or Kirloskar 3HP";
-  userInput.focus();
+  await pujaSpeak(`Great — a <strong>${state.pumpType}</strong> pump. Which brand is your pump?<br><small style="color:var(--ink-faint)">Select below or type the brand name</small>`);
+  addOptionsWithTextInput(
+    ["Shakti", "Texmo", "Kirloskar", "Oswal"],
+    "Type brand name (e.g. Shakti, Oswal...)",
+    async (val) => {
+      const brand = normalizeBrand(val);
+      if (!brand) {
+        await pujaSpeak(`I don't recognise that brand. Please choose one of: <strong>Shakti, Texmo, Kirloskar, Oswal</strong> — or type the name.`);
+        await askBrandHP();
+        return;
+      }
+      state.brand = brand;
+      await askHP();
+    }
+  );
+}
+
+async function askHP() {
+  await pujaSpeak(`Good choice! What is the <strong>horsepower (HP)</strong> of your ${state.brand} pump?`, 600);
+  const hpOptions = state.pumpType === "SUBMERSIBLE"
+    ? [{label:"0.5 HP", value:"0.5"}, {label:"1 HP", value:"1"}, {label:"1.5 HP", value:"1.5"}, {label:"2 HP", value:"2"}, {label:"3 HP", value:"3"}, {label:"5 HP", value:"5"}]
+    : [{label:"0.5 HP", value:"0.5"}, {label:"1 HP", value:"1"}, {label:"1.5 HP", value:"1.5"}, {label:"2 HP", value:"2"}, {label:"3 HP", value:"3"}];
+  addOptions(hpOptions, async (val) => {
+    state.hp = val;
+    state.step = "resolving";
+    await resolvePump();
+  });
 }
 
 function parseBrandHP(text) {
@@ -1034,9 +1130,9 @@ async function computeAndShow() {
   }
 
   let perfNote = "";
-  if (tdhRatio < 0.9) perfNote = "Pump is operating <strong>below rated head</strong> — good performance expected.";
-  else if (tdhRatio <= 1.1) perfNote = "TDH is <strong>near rated head</strong> — moderate performance.";
-  else perfNote = "TDH <strong>exceeds rated head</strong> — reduced discharge is expected.";
+  if (tdhRatio < 0.9) perfNote = "TDH is well <strong>below rated head</strong> — pump will deliver above-rated discharge.";
+  else if (tdhRatio <= 1.1) perfNote = "TDH is <strong>near rated head</strong> — pump operating at design point.";
+  else perfNote = "TDH <strong>exceeds rated head</strong> — effective discharge is proportionally reduced.";
 
   const card = document.createElement("div");
   card.className = "message-row puja";
@@ -1086,7 +1182,7 @@ async function computeAndShow() {
     </div>
   `;
   chat.appendChild(card);
-  scrollBottom();
+  scrollBottom(card);
 
   state.step = "done";
   userInput.placeholder = "Ask a follow-up question...";
@@ -1153,13 +1249,7 @@ async function handleSend() {
   if (!text) return;
   userInput.value = "";
 
-  if (state.step === "brand_hp") {
-    addMessage("user", text);
-    await handleBrandHP(text);
-  } else if (state.step === "hp_only") {
-    addMessage("user", text);
-    await handleHPOnly(text);
-  } else if (state.step === "model_number") {
+  if (state.step === "model_number") {
     addMessage("user", text);
     state.assumptions.push("model_assumed");
     const hp = parseFloat(state.hp) || 2;
