@@ -679,9 +679,9 @@ function calcDischarge(tdh, pumpData) {
 }
 
 function getDevice(lph) {
-  if (lph <= 9000) return { name: "Vipassa", size: '1"', link: "#vipassa" };
-  if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "#jhanavi" };
-  if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "#dihanga" };
+  if (lph <= 9000) return { name: "Vipassa", size: '1"', link: "https://pages.razorpay.com/jwfd1vipasa" };
+  if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "https://pages.razorpay.com/jwfd1jahnavi" };
+  if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "https://pages.razorpay.com/jwfd1dihanga" };
   return null;
 }
 
@@ -1173,7 +1173,7 @@ async function computeAndShow() {
             <strong>How we got here:</strong> Your borewell static head is ${Math.round(staticHead)} m, friction loss is ${Math.round(frictionLoss)} m, and minor losses add ${Math.round(minorLoss)} m — giving a Total Dynamic Head (TDH) of ${Math.round(tdh)} m. ${perfNote} Effective discharge is <strong>${lph.toLocaleString()} LPH</strong>, which matches the <strong>${device.name}</strong>.
           </div>
           <div class="result-actions">
-            <button class="action-btn primary" onclick="orderDevice('${device.name}', '${device.link}')">Order ${device.name}</button>
+            <button class="action-btn primary" id="order-btn-${device.name}">Order ${device.name}</button>
             <button class="action-btn secondary" onclick="askMoreQuestions()">Ask more questions</button>
             <button class="action-btn secondary" onclick="restartFlow()">Start over</button>
           </div>
@@ -1182,6 +1182,10 @@ async function computeAndShow() {
     </div>
   `;
   chat.appendChild(card);
+  // Attach order button safely with real URL
+  card.querySelector(`#order-btn-${device.name}`).addEventListener("click", () => {
+    orderDevice(device.name, device.link);
+  });
   scrollBottom(card);
 
   state.step = "done";
@@ -1190,7 +1194,8 @@ async function computeAndShow() {
 
 function orderDevice(name, link) {
   addMessage("user", `I'd like to order the ${name}`);
-  pujaSpeak(`Excellent choice! 🌿 Redirecting you to the <strong>${name}</strong> order page. Our team will get in touch with you shortly to confirm the details and arrange delivery.`, 800);
+  window.open(link, "_blank", "noopener,noreferrer");
+  pujaSpeak(`Excellent choice! 🌿 Opening the <strong>${name}</strong> order page for you. Complete your order there and our team will arrange delivery to your farm.`, 800);
 }
 
 function askMoreQuestions() {
