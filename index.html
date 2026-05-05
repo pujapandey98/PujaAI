@@ -438,7 +438,7 @@ function calcDischarge(tdh, pumpData) {
 }
 
 function getDevice(lph) {
-  if (lph <= 9000) return { name: "Vipassa", size: '1"', link: "#vipassa" };
+  if (lph <= 9000) return { name: "Vipasa", size: '1"', link: "#vipasa" };
   if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "#jhanavi" };
   if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "#dihanga" };
   return null;
@@ -865,7 +865,7 @@ async function computeAndShow() {
 
   state.lastRec = { device, lph, tdh, confidence, confLabel, staticHead, frictionLoss, minorLoss, perfNote };
 
-  const devicePrices = { "Vipassa": 18500, "Jhanavi": 34000, "Dihanga": 52000 };
+  const devicePrices = { "Vipasa": 18500, "Jhanavi": 34000, "Dihanga": 52000 };
   const price = devicePrices[device.name] || 30000;
 
   const emiPlans = [
@@ -973,36 +973,7 @@ async function computeAndShow() {
                 <span class="payment-badge">Most Popular</span>
               </div>
             </div>
-            <div onclick="selectPayment(this,'emi')" class="payment-option">
-              <div class="payment-icon">📅</div>
-              <div class="payment-info">
-                <h4>EMI Options</h4>
-                <p>Flexible monthly instalments starting from ₹${emiPlans[0].monthly.toLocaleString()}/month.</p>
-                <span class="payment-badge">No-cost EMI available</span>
-              </div>
-            </div>
-            <div id="${cardId}-emi-table" style="display:none;">
-              <table class="emi-table">
-                <thead><tr><th>Plan</th><th>Monthly EMI</th><th>Total Amount</th><th>Interest</th></tr></thead>
-                <tbody>
-                  ${emiPlans.map(p => `<tr><td>${p.label}</td><td>₹${p.monthly.toLocaleString()}/mo</td><td>₹${p.total.toLocaleString()}</td><td>${p.rate === 0 ? "Free" : p.rate + "% p.a."}</td></tr>`).join("")}
-                </tbody>
-              </table>
-            </div>
-            <div onclick="selectPayment(this,'cheque')" class="payment-option">
-              <div class="payment-icon">🏦</div>
-              <div class="payment-info">
-                <h4>Cheque / NEFT / RTGS</h4>
-                <p>Bank transfer with 2–3 business day processing. Preferred for large orders.</p>
-              </div>
-            </div>
-            <div onclick="selectPayment(this,'cod')" class="payment-option">
-              <div class="payment-icon">💵</div>
-              <div class="payment-info">
-                <h4>Cash on Delivery</h4>
-                <p>Pay on delivery. Available for orders under ₹50,000. 2–5 day dispatch.</p>
-              </div>
-            </div>
+            
             <button class="action-btn primary" style="margin-top:4px" onclick="proceedPayment('${device.name}')">Proceed to Payment</button>
           </div>
         </div>
@@ -1084,7 +1055,7 @@ function exportProposalPDF(frameId) {
 
 function buildFAQ(deviceName, lph, tdh, hp, brand) {
   const faqs = [
-    { q: `Why was the ${deviceName} recommended?`, a: `The ${deviceName} is matched to your calculated flow rate of ${lph.toLocaleString()} LPH. Each device in the JivaBot line covers a specific flow range — Vipassa up to 9,000 LPH, Jhanavi up to 30,000 LPH, and Dihanga up to 50,000 LPH.` },
+    { q: `Why was the ${deviceName} recommended?`, a: `The ${deviceName} is matched to your calculated flow rate of ${lph.toLocaleString()} LPH. Each device in the JivaBot line covers a specific flow range — Vipasa up to 9,000 LPH, Jhanavi up to 30,000 LPH, and Dihanga up to 50,000 LPH.` },
     { q: "What does TDH mean?", a: `Total Dynamic Head (TDH = ${Math.round(tdh)} m in your case) is the total pressure your pump must overcome — including the static depth of the bore, friction in pipes, and minor fittings losses. A higher TDH reduces the effective discharge.` },
     { q: "Can I use the device with a different pump?", a: `Yes, the ${deviceName} is compatible with any pump achieving a similar discharge (${lph.toLocaleString()} LPH ± 20%). If you upgrade or change your pump, we recommend re-running the calculation.` },
     { q: "What is the installation time?", a: `Standard installation takes 4–8 hours depending on field layout and pipe routing. JivaBot offers on-site installation support in most districts — contact your local dealer for availability.` },
@@ -1132,7 +1103,9 @@ function selectPayment(el, method) {
 function proceedPayment(name) {
   const method = selectedPaymentMethod || "online";
   addMessage("user", `Proceed to payment for ${name} via ${method}`);
-  pujaSpeak(`Great! Initiating <strong>${method === "emi" ? "EMI" : method === "cod" ? "Cash on Delivery" : method === "cheque" ? "Bank Transfer" : "Razorpay"}</strong> payment for the <strong>${name}</strong>. Our team will contact you shortly to finalise and confirm your order. 🌿`);
+  pujaSpeak(`Great! Initiating <strong> Razorpay </strong> payment for the <strong>${name}</strong>. Our team will contact you shortly to finalise and confirm your order. 🌿`);
+
+  window.open('https://pages.razorpay.com/jwfd1'+name.toLowerCase(), '_blank');
 }
 
 function orderDevice(name) {
@@ -1164,7 +1137,7 @@ async function handleFreeform(text) {
 - Pump: ${state.brand || "unknown"} ${state.hp || ""}HP ${state.pumpType || ""}
 - Bore depth: ${state.boreDepth}m, Distance to field: ${state.distance}m, Pipe: ${state.pipeDiameter} inch
 - Recommended device: ${state.lastRec ? state.lastRec.device.name + ' ' + state.lastRec.device.size + ', flow ' + state.lastRec.lph + ' LPH, TDH ' + Math.round(state.lastRec.tdh) + 'm' : 'see earlier calculation'}
-Answer follow-up questions helpfully. Stay focused on farm irrigation and the JivaBot product line (Vipassa 1", Jhanavi 2", Dihanga 3").`;
+Answer follow-up questions helpfully. Stay focused on farm irrigation and the JivaBot product line (Vipasa 1", Jhanavi 2", Dihanga 3").`;
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
