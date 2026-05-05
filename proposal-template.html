@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jiva Water Devices - Proposal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      background: #ffffff;
+      box-sizing: border-box;
+      padding-bottom: 20mm;
+      position: relative;
+    }
+
+    .logo-banner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 60px 0 20px;
+    }
+
+    .logo-banner img {
+      width: 180px;
+      height: auto;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin: 10px 0 30px;
+    }
+
+    .content {
+      padding: 0 20mm;
+    }
+
+    .section {
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .label {
+      font-weight: bold;
+      display: inline-block;
+      width: 240px;
+    }
+
+    .value {
+      display: inline-block;
+      border-bottom: 1px solid #000;
+      width: calc(100% - 250px);
+      height: 18px;
+      padding-left: 5px;
+    }
+
+    .block {
+      margin-top: 25px;
+    }
+
+    .explanation {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20mm;
+      left: 20mm;
+      right: 20mm;
+      font-size: 14px;
+    }
+
+    @media print {
+      body {
+        background: none;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="logo-banner">
+    <img src="assets/logo.png" alt="Jiva Logo">
+  </div>
+
+  <div class="title">
+    Jiva Water Devices - Irrigation Proposal
+  </div>
+
+  <div class="content">
+
+    <!-- 🔥 Added IDs -->
+    <div class="section"><span class="label">Customer Details:</span><span class="value" id="customer"></span></div>
+    <div class="section"><span class="label">Pump Details:</span><span class="value" id="pump"></span></div>
+    <div class="section"><span class="label">Bore Depth:</span><span class="value" id="bore"></span></div>
+    <div class="section"><span class="label">Distance to Field:</span><span class="value" id="distance"></span></div>
+    <div class="section"><span class="label">Pipe Diameter:</span><span class="value" id="pipe"></span></div>
+    <div class="section"><span class="label">Effective Discharge at Field:</span><span class="value" id="discharge"></span></div>
+    <div class="section"><span class="label">Recommended Jiva Device:</span><span class="value" id="device"></span></div>
+    <div class="section"><span class="label">Confidence Score:</span><span class="value" id="confidence"></span></div>
+
+    <br>
+
+    <div class="block">
+      <div class="label">Explanation:</div>
+      <div class="explanation" id="explanation">
+        Based on your pump and field conditions, the above recommendation ensures safe and efficient
+        water flow.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Thank you for choosing Jiva Water Devices.
+  </div>
+
+</div>
+
+<!-- ✅ SCRIPT -->
+<script>
+  function fillProposal(data) {
+    const map = {
+      customer: "customer",
+      pump: "pump",
+      bore: "bore",
+      distance: "distance",
+      pipe: "pipe",
+      discharge: "discharge",
+      device: "device",
+      confidence: "confidence",
+      explanation: "explanation"
+    };
+
+    Object.keys(map).forEach(key => {
+      const el = document.getElementById(map[key]);
+      if (el && data[key] !== undefined) {
+        el.innerText = data[key] || "-";
+      }
+    });
+  }
+
+  // expose globally
+  window.fillProposal = fillProposal;
+
+  /* 🔥 Example test (remove in production) */
+  /*
+  fillProposal({
+    customer: "Ramesh Kumar",
+    pump: "Kirloskar 3HP Monoblock",
+    bore: "80 m",
+    distance: "50 m",
+    pipe: "1 inch",
+    discharge: "200 LPM",
+    device: "Jiva KDS-216E",
+    confidence: "92%",
+    explanation: "Optimized for pressure stability and efficient water structuring."
+  });
+  */
+</script>
+
+</body>
+</html>
