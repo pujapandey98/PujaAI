@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Puja AI — Farm Device Selector</title>
+<title>JivaBot — Farm Device Selector</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,529 +50,293 @@
     z-index: 100;
   }
 
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
+  .brand { display: flex; align-items: center; gap: 12px; }
   .brand-logo {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
     border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    color: white;
-    font-weight: 600;
-    letter-spacing: -0.5px;
+    font-size: 18px; color: white; font-weight: 600; letter-spacing: -0.5px;
   }
-
-  .brand-text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .brand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-    color: var(--ink);
-    line-height: 1;
-  }
-
-  .brand-tag {
-    font-size: 11px;
-    color: var(--ink-faint);
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--ink); line-height: 1; }
+  .brand-tag { font-size: 11px; color: var(--ink-faint); font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
 
   .status-pill {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: #f0f6f2;
-    border: 1px solid #c8dece;
-    border-radius: 100px;
-    padding: 6px 14px;
-    font-size: 12px;
-    color: var(--sage);
-    font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+    background: #f0f6f2; border: 1px solid #c8dece; border-radius: 100px;
+    padding: 6px 14px; font-size: 12px; color: var(--sage); font-weight: 500;
   }
-
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--sage);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+  .status-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
   /* ── MAIN ── */
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    max-width: 780px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 1rem;
-  }
+  main { flex: 1; display: flex; flex-direction: column; max-width: 780px; width: 100%; margin: 0 auto; padding: 0 1rem; }
 
   /* ── CHAT ── */
   #chat-container {
-    flex: 1;
-    padding: 2rem 0 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    flex: 1; padding: 2rem 0 1rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
     min-height: calc(100vh - 68px - 160px);
     overflow-y: auto;
   }
 
-  .message-row {
-    display: flex;
-    gap: 12px;
-    animation: fadeUp 0.35s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .message-row.user {
-    flex-direction: row-reverse;
-  }
+  .message-row { display: flex; gap: 12px; animation: fadeUp 0.35s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .message-row.user { flex-direction: row-reverse; }
 
   .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 2px;
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; margin-top: 2px;
   }
+  .avatar.puja { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); color: white; font-family: 'Playfair Display', serif; }
+  .avatar.user { background: var(--earth-light); color: var(--earth); }
 
-  .avatar.puja {
-    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
-    color: white;
-    font-family: 'Playfair Display', serif;
-  }
+  .bubble-wrap { display: flex; flex-direction: column; gap: 6px; max-width: 78%; }
+  .message-row.user .bubble-wrap { align-items: flex-end; }
 
-  .avatar.user {
-    background: var(--earth-light);
-    color: var(--earth);
-  }
+  .bubble { padding: 14px 18px; border-radius: var(--radius); font-size: 15px; line-height: 1.65; color: var(--ink); background: var(--puja-bubble); border: 1px solid var(--border); }
+  .message-row.user .bubble { background: var(--user-bubble); color: white; border-color: transparent; border-bottom-right-radius: 4px; }
+  .bubble.puja { border-bottom-left-radius: 4px; }
+  .bubble strong { font-weight: 600; color: var(--sage); }
+  .message-row.user .bubble strong { color: rgba(255,255,255,0.8); }
 
-  .bubble-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    max-width: 78%;
-  }
+  .sender-label { font-size: 11px; color: var(--ink-faint); font-weight: 500; letter-spacing: 0.3px; padding: 0 4px; }
 
-  .message-row.user .bubble-wrap {
-    align-items: flex-end;
-  }
-
-  .bubble {
-    padding: 14px 18px;
-    border-radius: var(--radius);
-    font-size: 15px;
-    line-height: 1.65;
-    color: var(--ink);
-    background: var(--puja-bubble);
-    border: 1px solid var(--border);
-  }
-
-  .message-row.user .bubble {
-    background: var(--user-bubble);
-    color: white;
-    border-color: transparent;
-    border-bottom-right-radius: 4px;
-  }
-
-  .bubble.puja {
-    border-bottom-left-radius: 4px;
-  }
-
-  .bubble strong {
-    font-weight: 600;
-    color: var(--sage);
-  }
-
-  .message-row.user .bubble strong {
-    color: rgba(255,255,255,0.8);
-  }
-
-  .sender-label {
-    font-size: 11px;
-    color: var(--ink-faint);
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    padding: 0 4px;
-  }
-
-  /* ── OPTIONS BUTTONS ── */
-  .options-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 4px;
-  }
-
+  /* ── OPTIONS ── */
+  .options-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
   .option-btn {
-    background: var(--surface);
-    border: 1.5px solid var(--border-strong);
-    border-radius: 100px;
-    padding: 9px 20px;
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    color: var(--ink);
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+    background: var(--surface); border: 1.5px solid var(--border-strong);
+    border-radius: 100px; padding: 9px 20px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; color: var(--ink);
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
   }
+  .option-btn:hover { border-color: var(--sage); background: var(--sage-light); color: var(--sage); transform: translateY(-1px); }
+  .option-btn:active { transform: translateY(0); }
+  .option-btn.selected { border-color: var(--sage); background: var(--sage); color: white; }
 
-  .option-btn:hover {
-    border-color: var(--sage);
-    background: var(--sage-light);
-    color: var(--sage);
-    transform: translateY(-1px);
-  }
-
-  .option-btn:active {
-    transform: translateY(0);
-  }
-
-  .option-btn.selected {
-    border-color: var(--sage);
-    background: var(--sage);
-    color: white;
-  }
-
-  /* ── TEXT INPUT INLINE ── */
-  .inline-input-wrap {
-    display: flex;
-    gap: 8px;
-    margin-top: 4px;
-  }
-
+  /* ── INLINE INPUT ── */
+  .inline-input-wrap { display: flex; gap: 8px; margin-top: 4px; }
   .inline-input {
-    flex: 1;
-    background: var(--surface);
-    border: 1.5px solid var(--border-strong);
-    border-radius: 100px;
-    padding: 9px 18px;
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
+    flex: 1; background: var(--surface); border: 1.5px solid var(--border-strong);
+    border-radius: 100px; padding: 9px 18px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--ink);
+    outline: none; transition: border-color 0.2s;
   }
-
-  .inline-input:focus {
-    border-color: var(--sage);
-  }
-
-  .inline-input::placeholder {
-    color: var(--ink-faint);
-  }
-
+  .inline-input:focus { border-color: var(--sage); }
+  .inline-input::placeholder { color: var(--ink-faint); }
   .inline-submit {
-    background: var(--sage);
-    color: white;
-    border: none;
-    border-radius: 100px;
-    padding: 9px 20px;
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
+    background: var(--sage); color: white; border: none; border-radius: 100px;
+    padding: 9px 20px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
   }
+  .inline-submit:hover { background: #3d6b4a; }
 
-  .inline-submit:hover {
-    background: #3d6b4a;
+  /* ── DISTANCE UNIT TOGGLE ── */
+  .unit-toggle-wrap { margin-top: 4px; }
+  .unit-toggle-row {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
   }
+  .unit-toggle-label { font-size: 12px; color: var(--ink-faint); font-weight: 500; }
+  .unit-toggle {
+    display: flex; background: var(--cream); border: 1.5px solid var(--border-strong);
+    border-radius: 100px; overflow: hidden; padding: 3px;
+  }
+  .unit-btn {
+    border: none; background: transparent; border-radius: 100px;
+    padding: 4px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif;
+    font-weight: 600; color: var(--ink-faint); cursor: pointer; transition: all 0.2s;
+  }
+  .unit-btn.active { background: var(--sage); color: white; }
 
   /* ── RESULT CARD ── */
-  .result-card {
+  .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-top: 4px; }
+  .result-header { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); padding: 20px 24px; color: white; }
+  .result-device { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; letter-spacing: -0.5px; }
+  .result-sub { font-size: 13px; opacity: 0.8; margin-top: 4px; }
+  .result-body { padding: 0; display: flex; flex-direction: column; }
+
+  /* ── TABS ── */
+  .result-tabs {
+    display: flex; border-bottom: 1px solid var(--border);
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    margin-top: 4px;
   }
+  .result-tab {
+    flex: 1; padding: 14px 10px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600;
+    color: var(--ink-faint); background: transparent; border: none;
+    cursor: pointer; transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .result-tab:hover { color: var(--sage); background: var(--sage-light); }
+  .result-tab.active { color: var(--sage); border-bottom-color: var(--sage); background: #f6fbf8; }
+  .result-tab .tab-icon { font-size: 15px; }
 
-  .result-header {
-    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
-    padding: 20px 24px;
-    color: white;
-  }
+  .tab-content { display: none; padding: 20px 24px; }
+  .tab-content.active { display: flex; flex-direction: column; gap: 16px; }
 
-  .result-device {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-  }
+  /* ── METRICS ── */
+  .metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .metric-box { background: var(--cream); border-radius: 12px; padding: 12px 14px; text-align: center; }
+  .metric-val { font-size: 18px; font-weight: 600; color: var(--sage); font-family: 'Playfair Display', serif; }
+  .metric-label { font-size: 11px; color: var(--ink-faint); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
 
-  .result-sub {
-    font-size: 13px;
-    opacity: 0.8;
-    margin-top: 4px;
-  }
-
-  .result-body {
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .metrics-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  .metric-box {
-    background: var(--cream);
-    border-radius: 12px;
-    padding: 12px 14px;
-    text-align: center;
-  }
-
-  .metric-val {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--sage);
-    font-family: 'Playfair Display', serif;
-  }
-
-  .metric-label {
-    font-size: 11px;
-    color: var(--ink-faint);
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-
-  .confidence-bar-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .confidence-label-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: var(--ink-muted);
-  }
-
-  .confidence-bar {
-    height: 8px;
-    background: var(--sage-light);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-
-  .confidence-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--sage) 0%, var(--sage-mid) 100%);
-    border-radius: 100px;
-    transition: width 1s ease;
-  }
+  .confidence-bar-wrap { display: flex; flex-direction: column; gap: 6px; }
+  .confidence-label-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-muted); }
+  .confidence-bar { height: 8px; background: var(--sage-light); border-radius: 100px; overflow: hidden; }
+  .confidence-fill { height: 100%; background: linear-gradient(90deg, var(--sage) 0%, var(--sage-mid) 100%); border-radius: 100px; transition: width 1s ease; }
 
   .result-explanation {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--ink-muted);
-    background: var(--earth-light);
-    border-radius: 12px;
-    padding: 14px 16px;
+    font-size: 14px; line-height: 1.7; color: var(--ink-muted);
+    background: var(--earth-light); border-radius: 12px; padding: 14px 16px;
   }
 
-  .result-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
+  .result-actions { display: flex; gap: 8px; flex-wrap: wrap; }
   .action-btn {
-    flex: 1;
-    min-width: 120px;
-    padding: 11px 16px;
-    border-radius: 100px;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
-    border: 1.5px solid;
+    flex: 1; min-width: 120px; padding: 11px 16px; border-radius: 100px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600;
+    cursor: pointer; text-align: center; transition: all 0.2s; border: 1.5px solid;
   }
-
-  .action-btn.primary {
-    background: var(--sage);
-    color: white;
-    border-color: var(--sage);
-  }
-
+  .action-btn.primary { background: var(--sage); color: white; border-color: var(--sage); }
   .action-btn.primary:hover { background: #3d6b4a; }
+  .action-btn.secondary { background: transparent; color: var(--ink); border-color: var(--border-strong); }
+  .action-btn.secondary:hover { background: var(--sage-light); border-color: var(--sage); color: var(--sage); }
 
-  .action-btn.secondary {
-    background: transparent;
-    color: var(--ink);
-    border-color: var(--border-strong);
+  /* ── FAQ TAB ── */
+  .faq-item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .faq-q {
+    width: 100%; text-align: left; background: var(--cream);
+    border: none; padding: 14px 16px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 600;
+    color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.2s;
   }
+  .faq-q:hover { background: var(--sage-light); }
+  .faq-q.open { background: var(--sage-light); color: var(--sage); }
+  .faq-q .faq-chevron { transition: transform 0.3s; font-size: 12px; color: var(--ink-faint); }
+  .faq-q.open .faq-chevron { transform: rotate(180deg); color: var(--sage); }
+  .faq-a { display: none; padding: 12px 16px; font-size: 13px; line-height: 1.7; color: var(--ink-muted); background: white; border-top: 1px solid var(--border); }
+  .faq-a.open { display: block; }
 
-  .action-btn.secondary:hover {
-    background: var(--sage-light);
-    border-color: var(--sage);
-    color: var(--sage);
+  /* ── PAYMENTS TAB ── */
+  .payment-option {
+    display: flex; align-items: flex-start; gap: 14px;
+    border: 1.5px solid var(--border); border-radius: 14px; padding: 16px;
+    cursor: pointer; transition: all 0.2s;
   }
-
-  /* ── TYPING INDICATOR ── */
-  .typing-indicator {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 12px 16px;
-    background: var(--puja-bubble);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    border-bottom-left-radius: 4px;
-    width: fit-content;
+  .payment-option:hover { border-color: var(--sage); background: #f6fbf8; }
+  .payment-option.selected { border-color: var(--sage); background: #f6fbf8; }
+  .payment-icon { font-size: 26px; flex-shrink: 0; }
+  .payment-info h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .payment-info p { font-size: 12px; color: var(--ink-faint); line-height: 1.5; }
+  .payment-badge {
+    display: inline-block; background: var(--sage-light); color: var(--sage);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    border-radius: 100px; padding: 2px 8px; margin-top: 4px;
   }
+  .emi-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .emi-table th { background: var(--sage); color: white; padding: 9px 12px; text-align: left; font-weight: 600; }
+  .emi-table th:first-child { border-radius: 8px 0 0 0; }
+  .emi-table th:last-child { border-radius: 0 8px 0 0; }
+  .emi-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--ink-muted); }
+  .emi-table tr:last-child td { border-bottom: none; }
+  .emi-table tr:nth-child(even) td { background: var(--cream); }
 
-  .typing-dot {
-    width: 7px;
-    height: 7px;
-    background: var(--sage-mid);
-    border-radius: 50%;
-    animation: bounce 1.2s ease-in-out infinite;
+  /* ── PDF TAB ── */
+  /* CHANGE 2 & 3: PDF preview styles replacing "coming soon" */
+  .pdf-preview-wrap {
+    display: flex; flex-direction: column; gap: 12px;
   }
-
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes bounce {
-    0%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-6px); }
+  .pdf-preview-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--cream); border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 16px;
   }
-
-  /* ── INPUT BAR ── */
-  #input-bar {
-    position: sticky;
-    bottom: 0;
-    background: var(--cream);
-    padding: 1rem 0 1.5rem;
-    border-top: 1px solid var(--border);
+  .pdf-preview-title {
+    font-size: 14px; font-weight: 600; color: var(--ink);
   }
-
-  .input-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    background: var(--surface);
-    border: 1.5px solid var(--border-strong);
-    border-radius: 100px;
-    padding: 8px 8px 8px 20px;
-    transition: border-color 0.2s;
-  }
-
-  .input-row:focus-within {
-    border-color: var(--sage);
-  }
-
-  #user-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    font-family: 'DM Sans', sans-serif;
-    color: var(--ink);
-    background: transparent;
-  }
-
-  #user-input::placeholder { color: var(--ink-faint); }
-
-  #send-btn {
-    width: 40px;
-    height: 40px;
-    background: var(--sage);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, transform 0.1s;
-    flex-shrink: 0;
-  }
-
-  #send-btn:hover { background: #3d6b4a; }
-  #send-btn:active { transform: scale(0.95); }
-
-  #send-btn svg { width: 18px; height: 18px; }
-
-  .input-hint {
-    text-align: center;
-    font-size: 11px;
-    color: var(--ink-faint);
-    margin-top: 8px;
-    letter-spacing: 0.3px;
-  }
-
-  /* ── DIVIDER ── */
-  .chat-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0 4px;
-  }
-
-  .chat-divider span {
-    font-size: 11px;
-    color: var(--ink-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
+  .pdf-export-btn {
+    flex: 0 !important; min-width: auto !important;
+    padding: 9px 20px !important; font-size: 13px !important;
     white-space: nowrap;
   }
-
-  .chat-divider::before, .chat-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
+  /* Scaled iframe wrapper — proposal-template.html is A4 (210mm ≈ 794px wide).
+     We scale it down to fit snugly inside the card. */
+  .pdf-iframe-scaler {
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    /* height = iframe natural height × scale factor */
+    height: 420px;
   }
+  .pdf-iframe {
+    width: 794px;           /* A4 natural pixel width */
+    height: 1123px;         /* A4 natural pixel height */
+    border: none;
+    transform-origin: top left;
+    transform: scale(0.53); /* 53% → fits ~420px tall in the card */
+    display: block;
+  }
+
+  /* ── RESTART BUTTON (outside card) ── */
+  /* CHANGE 1: Start over button outside result-card */
+  .restart-btn-outer {
+    display: flex; justify-content: center; margin-top: 8px; margin-bottom: 4px;
+  }
+  .restart-btn-outer .action-btn {
+    flex: 0; min-width: 140px; max-width: 200px;
+  }
+
+  /* ── TYPING ── */
+  .typing-indicator {
+    display: flex; align-items: center; gap: 4px;
+    padding: 12px 16px; background: var(--puja-bubble); border: 1px solid var(--border);
+    border-radius: var(--radius); border-bottom-left-radius: 4px; width: fit-content;
+  }
+  .typing-dot { width: 7px; height: 7px; background: var(--sage-mid); border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-6px); } }
+
+  /* ── INPUT BAR ── */
+  #input-bar { position: sticky; bottom: 0; background: var(--cream); padding: 1rem 0 1.5rem; border-top: 1px solid var(--border); }
+  .input-row {
+    display: flex; gap: 10px; align-items: center;
+    background: var(--surface); border: 1.5px solid var(--border-strong);
+    border-radius: 100px; padding: 8px 8px 8px 20px; transition: border-color 0.2s;
+  }
+  .input-row:focus-within { border-color: var(--sage); }
+  #user-input { flex: 1; border: none; outline: none; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--ink); background: transparent; }
+  #user-input::placeholder { color: var(--ink-faint); }
+  #send-btn {
+    width: 40px; height: 40px; background: var(--sage); border: none; border-radius: 50%;
+    color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.1s; flex-shrink: 0;
+  }
+  #send-btn:hover { background: #3d6b4a; }
+  #send-btn:active { transform: scale(0.95); }
+  #send-btn svg { width: 18px; height: 18px; }
+  .input-hint { text-align: center; font-size: 11px; color: var(--ink-faint); margin-top: 8px; letter-spacing: 0.3px; }
+
+  /* ── DIVIDER ── */
+  .chat-divider { display: flex; align-items: center; gap: 12px; padding: 0 4px; }
+  .chat-divider span { font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; }
+  .chat-divider::before, .chat-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     header { padding: 0 1rem; }
     .metrics-row { grid-template-columns: 1fr 1fr; }
+    .result-tab { font-size: 12px; padding: 12px 6px; }
+    .result-tab .tab-label { display: none; }
+    .result-tab .tab-icon { font-size: 18px; }
+    .pdf-iframe-scaler { height: 300px; }
+    .pdf-iframe { transform: scale(0.38); }
   }
 </style>
 </head>
@@ -582,7 +346,7 @@
   <div class="brand">
     <div class="brand-logo">P</div>
     <div class="brand-text">
-      <span class="brand-name">Puja AI</span>
+      <span class="brand-name">JivaBot</span>
       <span class="brand-tag">Farm Device Advisor</span>
     </div>
   </div>
@@ -603,27 +367,27 @@
         </svg>
       </button>
     </div>
-    <p class="input-hint">Puja AI · Powered by Anthropic · Farm device recommendations only</p>
+    <p class="input-hint">JivaBot · Powered by Anthropic · Farm device recommendations only</p>
   </div>
 </main>
 
 <script>
 const PUMP_DB = {
   SHAKTI: {
-    MONOBLOCK: { "0.5": {ratedHead:20,ratedDischarge:60}, "1": {ratedHead:30,ratedDischarge:80}, "1.5": {ratedHead:35,ratedDischarge:100}, "2": {ratedHead:40,ratedDischarge:130}, "3": {ratedHead:50,ratedDischarge:160} },
-    SUBMERSIBLE: { "0.5": {ratedHead:40,ratedDischarge:40}, "1": {ratedHead:55,ratedDischarge:60}, "1.5": {ratedHead:70,ratedDischarge:80}, "2": {ratedHead:90,ratedDischarge:100}, "3": {ratedHead:110,ratedDischarge:130}, "5": {ratedHead:150,ratedDischarge:180} }
+    MONOBLOCK: { "0.5":{ratedHead:20,ratedDischarge:60},"1":{ratedHead:30,ratedDischarge:80},"1.5":{ratedHead:35,ratedDischarge:100},"2":{ratedHead:40,ratedDischarge:130},"3":{ratedHead:50,ratedDischarge:160},"7":{ratedHead:65,ratedDischarge:220},"10":{ratedHead:80,ratedDischarge:300},"15":{ratedHead:100,ratedDischarge:420} },
+    SUBMERSIBLE: { "0.5":{ratedHead:40,ratedDischarge:40},"1":{ratedHead:55,ratedDischarge:60},"1.5":{ratedHead:70,ratedDischarge:80},"2":{ratedHead:90,ratedDischarge:100},"3":{ratedHead:110,ratedDischarge:130},"5":{ratedHead:150,ratedDischarge:180},"7":{ratedHead:180,ratedDischarge:230},"10":{ratedHead:220,ratedDischarge:310},"15":{ratedHead:270,ratedDischarge:430} }
   },
   TEXMO: {
-    MONOBLOCK: { "0.5": {ratedHead:18,ratedDischarge:55}, "1": {ratedHead:28,ratedDischarge:75}, "1.5": {ratedHead:33,ratedDischarge:95}, "2": {ratedHead:38,ratedDischarge:120}, "3": {ratedHead:48,ratedDischarge:150} },
-    SUBMERSIBLE: { "0.5": {ratedHead:38,ratedDischarge:38}, "1": {ratedHead:52,ratedDischarge:58}, "1.5": {ratedHead:65,ratedDischarge:75}, "2": {ratedHead:85,ratedDischarge:95}, "3": {ratedHead:105,ratedDischarge:125}, "5": {ratedHead:145,ratedDischarge:170} }
+    MONOBLOCK: { "0.5":{ratedHead:18,ratedDischarge:55},"1":{ratedHead:28,ratedDischarge:75},"1.5":{ratedHead:33,ratedDischarge:95},"2":{ratedHead:38,ratedDischarge:120},"3":{ratedHead:48,ratedDischarge:150},"7":{ratedHead:63,ratedDischarge:210},"10":{ratedHead:78,ratedDischarge:290},"15":{ratedHead:96,ratedDischarge:405} },
+    SUBMERSIBLE: { "0.5":{ratedHead:38,ratedDischarge:38},"1":{ratedHead:52,ratedDischarge:58},"1.5":{ratedHead:65,ratedDischarge:75},"2":{ratedHead:85,ratedDischarge:95},"3":{ratedHead:105,ratedDischarge:125},"5":{ratedHead:145,ratedDischarge:170},"7":{ratedHead:175,ratedDischarge:225},"10":{ratedHead:215,ratedDischarge:300},"15":{ratedHead:265,ratedDischarge:420} }
   },
   KIRLOSKAR: {
-    MONOBLOCK: { "0.5": {ratedHead:22,ratedDischarge:65}, "1": {ratedHead:32,ratedDischarge:85}, "1.5": {ratedHead:38,ratedDischarge:105}, "2": {ratedHead:44,ratedDischarge:135}, "3": {ratedHead:55,ratedDischarge:165} },
-    SUBMERSIBLE: { "0.5": {ratedHead:42,ratedDischarge:42}, "1": {ratedHead:58,ratedDischarge:62}, "1.5": {ratedHead:75,ratedDischarge:85}, "2": {ratedHead:95,ratedDischarge:105}, "3": {ratedHead:115,ratedDischarge:135}, "5": {ratedHead:155,ratedDischarge:185} }
+    MONOBLOCK: { "0.5":{ratedHead:22,ratedDischarge:65},"1":{ratedHead:32,ratedDischarge:85},"1.5":{ratedHead:38,ratedDischarge:105},"2":{ratedHead:44,ratedDischarge:135},"3":{ratedHead:55,ratedDischarge:165},"7":{ratedHead:68,ratedDischarge:225},"10":{ratedHead:85,ratedDischarge:310},"15":{ratedHead:105,ratedDischarge:430} },
+    SUBMERSIBLE: { "0.5":{ratedHead:42,ratedDischarge:42},"1":{ratedHead:58,ratedDischarge:62},"1.5":{ratedHead:75,ratedDischarge:85},"2":{ratedHead:95,ratedDischarge:105},"3":{ratedHead:115,ratedDischarge:135},"5":{ratedHead:155,ratedDischarge:185},"7":{ratedHead:185,ratedDischarge:235},"10":{ratedHead:225,ratedDischarge:315},"15":{ratedHead:275,ratedDischarge:435} }
   },
   OSWAL: {
-    MONOBLOCK: { "0.5": {ratedHead:19,ratedDischarge:58}, "1": {ratedHead:29,ratedDischarge:78}, "1.5": {ratedHead:34,ratedDischarge:98}, "2": {ratedHead:39,ratedDischarge:125}, "3": {ratedHead:49,ratedDischarge:155} },
-    SUBMERSIBLE: { "0.5": {ratedHead:39,ratedDischarge:39}, "1": {ratedHead:53,ratedDischarge:59}, "1.5": {ratedHead:67,ratedDischarge:77}, "2": {ratedHead:87,ratedDischarge:97}, "3": {ratedHead:107,ratedDischarge:127}, "5": {ratedHead:147,ratedDischarge:172} }
+    MONOBLOCK: { "0.5":{ratedHead:19,ratedDischarge:58},"1":{ratedHead:29,ratedDischarge:78},"1.5":{ratedHead:34,ratedDischarge:98},"2":{ratedHead:39,ratedDischarge:125},"3":{ratedHead:49,ratedDischarge:155},"7":{ratedHead:64,ratedDischarge:215},"10":{ratedHead:79,ratedDischarge:295},"15":{ratedHead:98,ratedDischarge:415} },
+    SUBMERSIBLE: { "0.5":{ratedHead:39,ratedDischarge:39},"1":{ratedHead:53,ratedDischarge:59},"1.5":{ratedHead:67,ratedDischarge:77},"2":{ratedHead:87,ratedDischarge:97},"3":{ratedHead:107,ratedDischarge:127},"5":{ratedHead:147,ratedDischarge:172},"7":{ratedHead:178,ratedDischarge:228},"10":{ratedHead:218,ratedDischarge:305},"15":{ratedHead:268,ratedDischarge:425} }
   }
 };
 
@@ -631,15 +395,10 @@ const FRICTION_FACTORS = { "1": 0.12, "1.5": 0.07, "2": 0.04 };
 
 const state = {
   step: "start",
-  pumpType: null,
-  brand: null,
-  hp: null,
-  pumpData: null,
-  boreDepth: null,
-  distance: null,
-  pipeDiameter: null,
-  assumptions: [],
-  conversationHistory: []
+  pumpType: null, brand: null, hp: null, pumpData: null,
+  boreDepth: null, distance: null, pipeDiameter: null,
+  assumptions: [], conversationHistory: [],
+  lastRec: null
 };
 
 const chat = document.getElementById("chat-container");
@@ -679,9 +438,9 @@ function calcDischarge(tdh, pumpData) {
 }
 
 function getDevice(lph) {
-  if (lph <= 9000) return { name: "Vipassa", size: '1"', link: "https://pages.razorpay.com/jwfd1vipasa" };
-  if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "https://pages.razorpay.com/jwfd1jahnavi" };
-  if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "https://pages.razorpay.com/jwfd1dihanga" };
+  if (lph <= 9000) return { name: "Vipassa", size: '1"', link: "#vipassa" };
+  if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "#jhanavi" };
+  if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "#dihanga" };
   return null;
 }
 
@@ -708,22 +467,17 @@ function confidenceLabel(s) {
 function addMessage(role, html) {
   const row = document.createElement("div");
   row.className = `message-row ${role}`;
-
   const av = document.createElement("div");
   av.className = `avatar ${role}`;
   av.textContent = role === "puja" ? "P" : "U";
-
   const wrap = document.createElement("div");
   wrap.className = "bubble-wrap";
-
   const label = document.createElement("span");
   label.className = "sender-label";
-  label.textContent = role === "puja" ? "Puja AI" : "You";
-
+  label.textContent = role === "puja" ? "JivaBot" : "You";
   const bubble = document.createElement("div");
   bubble.className = `bubble ${role}`;
   bubble.innerHTML = html;
-
   wrap.appendChild(label);
   wrap.appendChild(bubble);
   row.appendChild(av);
@@ -736,17 +490,13 @@ function addMessage(role, html) {
 function addOptions(options, onSelect) {
   const row = document.createElement("div");
   row.className = "message-row puja";
-
   const av = document.createElement("div");
   av.className = "avatar puja";
   av.textContent = "P";
-
   const wrap = document.createElement("div");
   wrap.className = "bubble-wrap";
-
   const grid = document.createElement("div");
   grid.className = "options-grid";
-
   options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
@@ -760,7 +510,6 @@ function addOptions(options, onSelect) {
     };
     grid.appendChild(btn);
   });
-
   wrap.appendChild(grid);
   row.appendChild(av);
   row.appendChild(wrap);
@@ -771,43 +520,32 @@ function addOptions(options, onSelect) {
 function addInlineInput(placeholder, unit, onSubmit) {
   const row = document.createElement("div");
   row.className = "message-row puja";
-
   const av = document.createElement("div");
   av.className = "avatar puja";
   av.textContent = "P";
-
   const wrap = document.createElement("div");
   wrap.className = "bubble-wrap";
-
   const iwrap = document.createElement("div");
   iwrap.className = "inline-input-wrap";
-
   const inp = document.createElement("input");
   inp.className = "inline-input";
   inp.type = "text";
   inp.placeholder = placeholder;
-
   const btn = document.createElement("button");
   btn.className = "inline-submit";
   btn.textContent = "Submit";
-
   const submit = () => {
     const v = inp.value.trim();
     if (!v) return;
-    inp.disabled = true;
-    btn.disabled = true;
+    inp.disabled = true; btn.disabled = true;
     addMessage("user", v + (unit ? " " + unit : ""));
     onSubmit(v);
   };
-
   btn.onclick = submit;
   inp.onkeydown = e => { if (e.key === "Enter") submit(); };
-
-  iwrap.appendChild(inp);
-  iwrap.appendChild(btn);
+  iwrap.appendChild(inp); iwrap.appendChild(btn);
   wrap.appendChild(iwrap);
-  row.appendChild(av);
-  row.appendChild(wrap);
+  row.appendChild(av); row.appendChild(wrap);
   chat.appendChild(row);
   scrollBottom(row);
   setTimeout(() => inp.focus(), 100);
@@ -816,136 +554,186 @@ function addInlineInput(placeholder, unit, onSubmit) {
 function addOptionsWithTextInput(options, placeholder, onSubmit) {
   const row = document.createElement("div");
   row.className = "message-row puja";
-
   const av = document.createElement("div");
   av.className = "avatar puja";
   av.textContent = "P";
-
   const wrap = document.createElement("div");
   wrap.className = "bubble-wrap";
-
   const grid = document.createElement("div");
   grid.className = "options-grid";
-
   let submitted = false;
-
   const doSubmit = (val, displayVal) => {
     if (submitted) return;
     submitted = true;
     grid.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
-    inp.disabled = true;
-    submitBtn.disabled = true;
+    inp.disabled = true; submitBtn.disabled = true;
     addMessage("user", displayVal || val);
     setTimeout(() => onSubmit(val), 300);
   };
-
   options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
     btn.textContent = opt.label || opt;
-    btn.onclick = () => {
-      btn.classList.add("selected");
-      doSubmit(opt.value !== undefined ? opt.value : opt, opt.label || opt);
-    };
+    btn.onclick = () => { btn.classList.add("selected"); doSubmit(opt.value !== undefined ? opt.value : opt, opt.label || opt); };
     grid.appendChild(btn);
   });
-
   const divider = document.createElement("div");
   divider.style.cssText = "display:flex;align-items:center;gap:8px;margin:6px 0 2px;";
   divider.innerHTML = `<div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:11px;color:var(--ink-faint);white-space:nowrap">or type below</span><div style="flex:1;height:1px;background:var(--border)"></div>`;
+  const iwrap = document.createElement("div");
+  iwrap.className = "inline-input-wrap";
+  const inp = document.createElement("input");
+  inp.className = "inline-input"; inp.type = "text"; inp.placeholder = placeholder;
+  const submitBtn = document.createElement("button");
+  submitBtn.className = "inline-submit"; submitBtn.textContent = "Submit";
+  const trySubmitText = () => { const v = inp.value.trim(); if (!v) return; doSubmit(v, v); };
+  submitBtn.onclick = trySubmitText;
+  inp.onkeydown = e => { if (e.key === "Enter") trySubmitText(); };
+  iwrap.appendChild(inp); iwrap.appendChild(submitBtn);
+  wrap.appendChild(grid); wrap.appendChild(divider); wrap.appendChild(iwrap);
+  row.appendChild(av); row.appendChild(wrap);
+  chat.appendChild(row);
+  scrollBottom(row);
+}
+
+// ── DISTANCE INPUT WITH UNIT TOGGLE ──
+function addDistanceInput(onSubmit) {
+  const DISTANCES_M = [
+    {label:"50 m", value:50}, {label:"100 m", value:100}, {label:"150 m", value:150},
+    {label:"200 m", value:200}, {label:"300 m", value:300}
+  ];
+  const DISTANCES_FT = [
+    {label:"100 ft", value:30.5}, {label:"150 ft", value:45.7}, {label:"200 ft", value:61},
+    {label:"300 ft", value:91.4}, {label:"500 ft", value:152.4}, {label:"660 ft", value:201.2}
+  ];
+
+  const row = document.createElement("div");
+  row.className = "message-row puja";
+  const av = document.createElement("div");
+  av.className = "avatar puja"; av.textContent = "P";
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+
+  let currentUnit = "m";
+  let submitted = false;
+
+  const doSubmit = (meters, displayText) => {
+    if (submitted) return;
+    submitted = true;
+    wrap.querySelectorAll(".option-btn, .unit-btn, .inline-input, .inline-submit").forEach(el => el.disabled = true);
+    addMessage("user", displayText);
+    setTimeout(() => onSubmit(meters), 300);
+  };
+
+  const toggleWrap = document.createElement("div");
+  toggleWrap.className = "unit-toggle-wrap";
+  const toggleRow = document.createElement("div");
+  toggleRow.className = "unit-toggle-row";
+  const toggleLabel = document.createElement("span");
+  toggleLabel.className = "unit-toggle-label";
+  toggleLabel.textContent = "Unit:";
+  const toggle = document.createElement("div");
+  toggle.className = "unit-toggle";
+  const btnM = document.createElement("button");
+  btnM.className = "unit-btn active"; btnM.textContent = "Metres";
+  const btnFt = document.createElement("button");
+  btnFt.className = "unit-btn"; btnFt.textContent = "Feet";
+  toggle.appendChild(btnM); toggle.appendChild(btnFt);
+  toggleRow.appendChild(toggleLabel); toggleRow.appendChild(toggle);
+  toggleWrap.appendChild(toggleRow);
+
+  const grid = document.createElement("div");
+  grid.className = "options-grid";
+
+  const renderOptions = () => {
+    grid.innerHTML = "";
+    const list = currentUnit === "m" ? DISTANCES_M : DISTANCES_FT;
+    list.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = opt.label;
+      btn.onclick = () => {
+        btn.classList.add("selected");
+        doSubmit(opt.value, opt.label + (currentUnit === "ft" ? ` (≈${Math.round(opt.value)} m)` : ""));
+      };
+      grid.appendChild(btn);
+    });
+  };
+
+  btnM.onclick = () => { if (currentUnit === "m") return; currentUnit = "m"; btnM.classList.add("active"); btnFt.classList.remove("active"); renderOptions(); };
+  btnFt.onclick = () => { if (currentUnit === "ft") return; currentUnit = "ft"; btnFt.classList.add("active"); btnM.classList.remove("active"); renderOptions(); };
+  renderOptions();
+
+  const divider = document.createElement("div");
+  divider.style.cssText = "display:flex;align-items:center;gap:8px;margin:8px 0 4px;";
+  divider.innerHTML = `<div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:11px;color:var(--ink-faint);white-space:nowrap">or enter custom value</span><div style="flex:1;height:1px;background:var(--border)"></div>`;
 
   const iwrap = document.createElement("div");
   iwrap.className = "inline-input-wrap";
-
   const inp = document.createElement("input");
-  inp.className = "inline-input";
-  inp.type = "text";
-  inp.placeholder = placeholder;
+  inp.className = "inline-input"; inp.type = "text";
+  const updatePlaceholder = () => { inp.placeholder = currentUnit === "m" ? "e.g. 75 m" : "e.g. 250 ft"; };
+  updatePlaceholder();
+  btnM.addEventListener("click", updatePlaceholder);
+  btnFt.addEventListener("click", updatePlaceholder);
 
   const submitBtn = document.createElement("button");
-  submitBtn.className = "inline-submit";
-  submitBtn.textContent = "Submit";
+  submitBtn.className = "inline-submit"; submitBtn.textContent = "Submit";
 
-  const trySubmitText = () => {
-    const v = inp.value.trim();
-    if (!v) return;
-    doSubmit(v, v);
+  const tryText = () => {
+    const raw = inp.value.trim();
+    if (!raw) return;
+    const num = parseFloat(raw.replace(/[^\d.]/g, ""));
+    if (isNaN(num)) return;
+    const meters = currentUnit === "ft" ? num * 0.3048 : num;
+    const unit = currentUnit === "m" ? "m" : "ft";
+    doSubmit(meters, `${num} ${unit}${currentUnit === "ft" ? ` (≈${Math.round(meters)} m)` : ""}`);
   };
+  submitBtn.onclick = tryText;
+  inp.onkeydown = e => { if (e.key === "Enter") tryText(); };
 
-  submitBtn.onclick = trySubmitText;
-  inp.onkeydown = e => { if (e.key === "Enter") trySubmitText(); };
-
-  iwrap.appendChild(inp);
-  iwrap.appendChild(submitBtn);
-
+  iwrap.appendChild(inp); iwrap.appendChild(submitBtn);
+  wrap.appendChild(toggleWrap);
   wrap.appendChild(grid);
   wrap.appendChild(divider);
   wrap.appendChild(iwrap);
-  row.appendChild(av);
-  row.appendChild(wrap);
+  row.appendChild(av); row.appendChild(wrap);
   chat.appendChild(row);
   scrollBottom(row);
 }
 
 function showTyping() {
   const row = document.createElement("div");
-  row.className = "message-row puja";
-  row.id = "typing-row";
-
+  row.className = "message-row puja"; row.id = "typing-row";
   const av = document.createElement("div");
-  av.className = "avatar puja";
-  av.textContent = "P";
-
+  av.className = "avatar puja"; av.textContent = "P";
   const wrap = document.createElement("div");
   wrap.className = "bubble-wrap";
-
   const ind = document.createElement("div");
   ind.className = "typing-indicator";
   for (let i = 0; i < 3; i++) {
     const d = document.createElement("div");
-    d.className = "typing-dot";
-    ind.appendChild(d);
+    d.className = "typing-dot"; ind.appendChild(d);
   }
-
-  wrap.appendChild(ind);
-  row.appendChild(av);
-  row.appendChild(wrap);
-  chat.appendChild(row);
-  scrollBottom();
+  wrap.appendChild(ind); row.appendChild(av); row.appendChild(wrap);
+  chat.appendChild(row); scrollBottom();
 }
 
-function hideTyping() {
-  const t = document.getElementById("typing-row");
-  if (t) t.remove();
-}
+function hideTyping() { const t = document.getElementById("typing-row"); if (t) t.remove(); }
+function scrollBottom(targetEl) { const el = targetEl || chat.lastElementChild; if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60); }
+function addDivider(text) { const d = document.createElement("div"); d.className = "chat-divider"; d.innerHTML = `<span>${text}</span>`; chat.appendChild(d); scrollBottom(d); }
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-function scrollBottom(targetEl) {
-  const el = targetEl || chat.lastElementChild;
-  if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60);
-}
-
-function addDivider(text) {
-  const d = document.createElement("div");
-  d.className = "chat-divider";
-  d.innerHTML = `<span>${text}</span>`;
-  chat.appendChild(d);
-  scrollBottom(d);
+async function pujaSpeak(html, ms = 700) {
+  showTyping(); await delay(ms); hideTyping();
+  return addMessage("puja", html);
 }
 
 // ── FLOW ──
 
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-async function pujaSpeak(html, ms = 700) {
-  showTyping();
-  await delay(ms);
-  hideTyping();
-  return addMessage("puja", html);
-}
-
 async function startFlow() {
   await delay(500);
-  await pujaSpeak(`Namaste! 🌿 I'm <strong>Puja AI</strong>, your smart farm device advisor.<br><br>I'll help you find the perfect irrigation device for your field — just answer a few questions and I'll calculate the right recommendation with a confidence score.`);
+  await pujaSpeak(`Namaste! 🌿 I'm <strong>JivaBot</strong>, your smart farm device advisor.<br><br>I'll help you find the perfect irrigation device for your field — just answer a few questions and I'll calculate the right recommendation with a confidence score.`);
   await delay(400);
   await pujaSpeak(`Let's begin. What type of pump are you using?`);
   addOptions(["Monoblock", "Submersible"], async (val) => {
@@ -963,8 +751,7 @@ async function askBrandHP() {
       const brand = normalizeBrand(val);
       if (!brand) {
         await pujaSpeak(`I don't recognise that brand. Please choose one of: <strong>Shakti, Texmo, Kirloskar, Oswal</strong> — or type the name.`);
-        await askBrandHP();
-        return;
+        await askBrandHP(); return;
       }
       state.brand = brand;
       await askHP();
@@ -974,127 +761,72 @@ async function askBrandHP() {
 
 async function askHP() {
   await pujaSpeak(`Good choice! What is the <strong>horsepower (HP)</strong> of your ${state.brand} pump?`, 600);
-  const hpOptions = state.pumpType === "SUBMERSIBLE"
-    ? [{label:"0.5 HP", value:"0.5"}, {label:"1 HP", value:"1"}, {label:"1.5 HP", value:"1.5"}, {label:"2 HP", value:"2"}, {label:"3 HP", value:"3"}, {label:"5 HP", value:"5"}]
-    : [{label:"0.5 HP", value:"0.5"}, {label:"1 HP", value:"1"}, {label:"1.5 HP", value:"1.5"}, {label:"2 HP", value:"2"}, {label:"3 HP", value:"3"}];
-  addOptions(hpOptions, async (val) => {
-    state.hp = val;
-    state.step = "resolving";
-    await resolvePump();
-  });
-}
-
-function parseBrandHP(text) {
-  const brand = normalizeBrand(text);
-  const hpMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:hp|HP|h\.p|h\.p\.)?/);
-  const hp = hpMatch ? hpMatch[1] : null;
-  return { brand, hp };
-}
-
-async function handleBrandHP(text) {
-  const { brand, hp } = parseBrandHP(text);
-
-  if (!brand) {
-    await pujaSpeak(`I didn't quite catch the brand. Could you mention one of: <strong>Shakti, Texmo, Kirloskar, or Oswal</strong>?`);
-    return;
-  }
-
-  if (!hp) {
-    await pujaSpeak(`Got <strong>${brand}</strong>! What's the horsepower (HP) of the pump?`);
-    state.brand = brand;
-    state.step = "hp_only";
-    return;
-  }
-
-  state.brand = brand;
-  state.hp = hp;
-  await resolvePump();
-}
-
-async function handleHPOnly(text) {
-  const hpMatch = text.match(/(\d+(?:\.\d+)?)/);
-  if (!hpMatch) {
-    await pujaSpeak(`Please enter a number, like <strong>2</strong> or <strong>1.5</strong>.`);
-    return;
-  }
-  state.hp = hpMatch[1];
-  await resolvePump();
+  addOptionsWithTextInput(
+    [
+      {label:"3 HP", value:"3"},
+      {label:"5 HP", value:"5"},
+      {label:"7.5 HP", value:"7.5"},
+      {label:"10 HP", value:"10"},
+      {label:"15 HP", value:"15"}
+    ],
+    "Enter HP (e.g. 0.5, 1, 2, 3, 5...)",
+    async (val) => {
+      const hpClean = val.replace(/\s*hp\s*/i, "").trim();
+      const hpNum = parseFloat(hpClean);
+      if (isNaN(hpNum) || hpNum <= 0) {
+        await pujaSpeak(`Please enter a valid HP number.`);
+        await askHP(); return;
+      }
+      state.hp = String(hpNum);
+      state.step = "resolving";
+      await resolvePump();
+    }
+  );
 }
 
 async function resolvePump() {
   const data = getPumpData(state.brand, state.pumpType, state.hp);
-
   if (!data) {
-    await pujaSpeak(`I couldn't find a match for <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> in my database. Let me ask a couple of quick clarifying questions.`);
-    await askPumpClarify();
-    return;
+    await pujaSpeak(`I couldn't find a match for <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> in my database. Let me estimate from nearest data.`);
+    state.assumptions.push("model_assumed");
+    const hp = parseFloat(state.hp) || 2;
+    const ratedHead = hp * 30; const ratedDischarge = hp * 45;
+    state.pumpData = { ratedHead, ratedDischarge, exact: false };
+    await pujaSpeak(`Using estimated specs — Rated head: <strong>${ratedHead} m</strong>, Discharge: <strong>${ratedDischarge} LPM</strong>.`);
+    addDivider("Field Information");
+    await askBoreDepth(); return;
   }
-
   if (!data.exact) {
     state.assumptions.push("model_assumed");
-    await pujaSpeak(`I found the closest match — <strong>${state.brand} ${data.usedHp} HP ${state.pumpType}</strong> (assumed, since exact model wasn't found). Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+    await pujaSpeak(`Closest match found — <strong>${state.brand} ${data.usedHp} HP ${state.pumpType}</strong> (assumed). Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
   } else {
     await pujaSpeak(`Found it! <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> — Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
   }
-
   state.pumpData = data;
   addDivider("Field Information");
   await delay(300);
   await askBoreDepth();
 }
 
-async function askPumpClarify() {
-  await pujaSpeak(`To find the closest pump data, is your pump a:`);
-  addOptions(["High pressure pump", "High discharge pump", "I have the model number"], async (val) => {
-    if (val === "I have the model number") {
-      await pujaSpeak(`Please type the model number:`);
-      state.step = "model_number";
-    } else {
-      state.assumptions.push("model_assumed");
-      const hp = parseFloat(state.hp) || 2;
-      const ratedHead = val.includes("pressure") ? hp * 40 : hp * 25;
-      const ratedDischarge = val.includes("pressure") ? hp * 35 : hp * 60;
-      state.pumpData = { ratedHead, ratedDischarge, exact: false };
-      await pujaSpeak(`Using estimated specs — Rated head: <strong>${ratedHead} m</strong>, Discharge: <strong>${ratedDischarge} LPM</strong>.`);
-      addDivider("Field Information");
-      await askBoreDepth();
-    }
-  });
-}
-
 async function askBoreDepth() {
   await pujaSpeak(`What is the <strong>bore depth</strong> (depth of your borewell)?`, 600);
-  addOptions([{label:"60 m", value:"60"},{label:"90 m", value:"90"},{label:"120 m", value:"120"},{label:"150 m", value:"150"},{label:"Other", value:"other"}], async (val) => {
+  addOptions([{label:"60 m",value:"60"},{label:"90 m",value:"90"},{label:"120 m",value:"120"},{label:"150 m",value:"150"},{label:"Other",value:"other"}], async (val) => {
     if (val === "other") {
       await pujaSpeak(`Please type the exact bore depth in metres:`);
       addInlineInput("e.g. 135", "m", async (v) => {
         const n = parseFloat(v);
         if (isNaN(n)) { await pujaSpeak(`Please enter a number in metres.`); return; }
-        state.boreDepth = n;
-        await askDistance();
+        state.boreDepth = n; await askDistance();
       });
-    } else {
-      state.boreDepth = parseFloat(val);
-      await askDistance();
-    }
+    } else { state.boreDepth = parseFloat(val); await askDistance(); }
   });
 }
 
 async function askDistance() {
-  await pujaSpeak(`What is the <strong>distance from the pump to the field</strong>?`, 600);
-  addOptions([{label:"50 m", value:"50"},{label:"100 m", value:"100"},{label:"150 m", value:"150"},{label:"200 m", value:"200"},{label:"Other", value:"other"}], async (val) => {
-    if (val === "other") {
-      await pujaSpeak(`Type the distance in metres:`);
-      addInlineInput("e.g. 75", "m", async (v) => {
-        const n = parseFloat(v);
-        if (isNaN(n)) { await pujaSpeak(`Please enter a number.`); return; }
-        state.distance = n;
-        await askPipeDia();
-      });
-    } else {
-      state.distance = parseFloat(val);
-      await askPipeDia();
-    }
+  await pujaSpeak(`What is the <strong>distance from the pump to the field</strong>?<br><small style="color:var(--ink-faint)">Toggle between metres and feet, or type a custom value</small>`, 600);
+  addDistanceInput(async (meters) => {
+    state.distance = meters;
+    await askPipeDia();
   });
 }
 
@@ -1109,9 +841,7 @@ async function askPipeDia() {
 }
 
 async function computeAndShow() {
-  showTyping();
-  await delay(1800);
-  hideTyping();
+  showTyping(); await delay(1800); hideTyping();
 
   const { tdh, staticHead, frictionLoss, minorLoss } = calcTDH(state.boreDepth, state.distance, state.pipeDiameter);
   const tdhRatio = tdh / state.pumpData.ratedHead;
@@ -1119,7 +849,6 @@ async function computeAndShow() {
 
   const dischargePerMin = calcDischarge(tdh, state.pumpData);
   const lph = Math.round(dischargePerMin * 60);
-
   const device = getDevice(lph);
   const confidence = calcConfidence();
   const confLabel = confidenceLabel(confidence);
@@ -1130,72 +859,285 @@ async function computeAndShow() {
   }
 
   let perfNote = "";
-  if (tdhRatio < 0.9) perfNote = "TDH is well <strong>below rated head</strong> — pump will deliver above-rated discharge.";
-  else if (tdhRatio <= 1.1) perfNote = "TDH is <strong>near rated head</strong> — pump operating at design point.";
-  else perfNote = "TDH <strong>exceeds rated head</strong> — effective discharge is proportionally reduced.";
+  if (tdhRatio < 0.9) perfNote = "TDH is well below rated head — pump will deliver above-rated discharge.";
+  else if (tdhRatio <= 1.1) perfNote = "TDH is near rated head — pump operating at design point.";
+  else perfNote = "TDH exceeds rated head — effective discharge is proportionally reduced.";
+
+  state.lastRec = { device, lph, tdh, confidence, confLabel, staticHead, frictionLoss, minorLoss, perfNote };
+
+  const devicePrices = { "Vipassa": 18500, "Jhanavi": 34000, "Dihanga": 52000 };
+  const price = devicePrices[device.name] || 30000;
+
+  const emiPlans = [
+    { months: 3, rate: 0, label: "No-cost EMI" },
+    { months: 6, rate: 9, label: "6 months" },
+    { months: 12, rate: 11, label: "12 months" },
+    { months: 24, rate: 13, label: "24 months" }
+  ].map(p => {
+    const monthly = p.rate === 0
+      ? Math.round(price / p.months)
+      : Math.round(price * (p.rate/1200) * Math.pow(1+p.rate/1200, p.months) / (Math.pow(1+p.rate/1200, p.months)-1));
+    const total = monthly * p.months;
+    return { ...p, monthly, total };
+  });
+
+  const cardId = "rc_" + Date.now();
+
+  // ── PROPOSAL DATA to inject into iframe ──
+  const proposalData = {
+    device: device.name + " " + device.size,
+    deviceName: device.name,
+    deviceSize: device.size,
+    flowRate: lph.toLocaleString() + " LPH",
+    tdh: Math.round(tdh) + " m",
+    staticHead: Math.round(staticHead) + " m",
+    frictionLoss: Math.round(frictionLoss) + " m",
+    minorLoss: Math.round(minorLoss) + " m",
+    confidence: confidence + "% — " + confLabel,
+    price: "₹" + price.toLocaleString(),
+    brand: state.brand,
+    hp: state.hp,
+    pumpType: state.pumpType,
+    boreDepth: state.boreDepth + " m",
+    distance: Math.round(state.distance) + " m",
+    pipeDiameter: state.pipeDiameter + " inch",
+    perfNote: perfNote,
+    date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })
+  };
 
   const card = document.createElement("div");
   card.className = "message-row puja";
   card.innerHTML = `
     <div class="avatar puja">P</div>
-    <div class="bubble-wrap" style="max-width:90%">
-      <span class="sender-label">Puja AI — Recommendation</span>
-      <div class="result-card">
+    <div class="bubble-wrap" style="max-width:92%">
+      <span class="sender-label">JivaBot — Recommendation</span>
+      <div class="result-card" id="${cardId}">
         <div class="result-header">
           <div class="result-device">${device.name} <span style="opacity:.7;font-size:18px">${device.size}</span></div>
           <div class="result-sub">Recommended farm irrigation device</div>
         </div>
-        <div class="result-body">
+
+        <div class="result-tabs">
+          <button class="result-tab active" onclick="switchTab('${cardId}','summary')">
+            <span class="tab-icon">📊</span><span class="tab-label">Summary</span>
+          </button>
+          <button class="result-tab" onclick="switchTab('${cardId}','faq')">
+            <span class="tab-icon">💬</span><span class="tab-label">FAQ</span>
+          </button>
+          <button class="result-tab" onclick="switchTab('${cardId}','payments')">
+            <span class="tab-icon">💳</span><span class="tab-label">Payments</span>
+          </button>
+          <button class="result-tab" onclick="switchTab('${cardId}','pdf')">
+            <span class="tab-icon">📄</span><span class="tab-label">Download PDF</span>
+          </button>
+        </div>
+
+        <!-- Summary Tab -->
+        <!-- CHANGE 1: "Start over" removed from result-actions; moved outside card below -->
+        <div class="tab-content active" id="${cardId}-summary">
           <div class="metrics-row">
-            <div class="metric-box">
-              <div class="metric-val">${lph.toLocaleString()}</div>
-              <div class="metric-label">LPH Flow</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-val">${Math.round(tdh)} m</div>
-              <div class="metric-label">Total Head</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-val">${confidence}%</div>
-              <div class="metric-label">${confLabel}</div>
-            </div>
+            <div class="metric-box"><div class="metric-val">${lph.toLocaleString()}</div><div class="metric-label">LPH Flow</div></div>
+            <div class="metric-box"><div class="metric-val">${Math.round(tdh)} m</div><div class="metric-label">Total Head</div></div>
+            <div class="metric-box"><div class="metric-val">${confidence}%</div><div class="metric-label">${confLabel}</div></div>
           </div>
           <div class="confidence-bar-wrap">
             <div class="confidence-label-row">
               <span>Confidence Score</span>
               <span style="font-weight:600;color:var(--sage)">${confidence}% — ${confLabel}</span>
             </div>
-            <div class="confidence-bar">
-              <div class="confidence-fill" style="width:${confidence}%"></div>
-            </div>
+            <div class="confidence-bar"><div class="confidence-fill" style="width:${confidence}%"></div></div>
           </div>
           <div class="result-explanation">
-            <strong>How we got here:</strong> Your borewell static head is ${Math.round(staticHead)} m, friction loss is ${Math.round(frictionLoss)} m, and minor losses add ${Math.round(minorLoss)} m — giving a Total Dynamic Head (TDH) of ${Math.round(tdh)} m. ${perfNote} Effective discharge is <strong>${lph.toLocaleString()} LPH</strong>, which matches the <strong>${device.name}</strong>.
+            <strong>How we got here:</strong> Borewell static head ${Math.round(staticHead)} m + friction loss ${Math.round(frictionLoss)} m + minor losses ${Math.round(minorLoss)} m = TDH ${Math.round(tdh)} m. ${perfNote} Effective discharge is <strong>${lph.toLocaleString()} LPH</strong>, matching the <strong>${device.name}</strong>.
           </div>
           <div class="result-actions">
-            <button class="action-btn primary" id="order-btn-${device.name}">Order ${device.name}</button>
+            <button class="action-btn primary" onclick="orderDevice('${device.name}')">Order ${device.name}</button>
             <button class="action-btn secondary" onclick="askMoreQuestions()">Ask more questions</button>
-            <button class="action-btn secondary" onclick="restartFlow()">Start over</button>
           </div>
         </div>
+
+        <!-- FAQ Tab -->
+        <div class="tab-content" id="${cardId}-faq">
+          ${buildFAQ(device.name, lph, tdh, state.hp, state.brand)}
+        </div>
+
+        <!-- Payments Tab -->
+        <div class="tab-content" id="${cardId}-payments">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="font-size:13px;color:var(--ink-muted);">Select your preferred payment method for the <strong>${device.name}</strong> (Est. ₹${price.toLocaleString()}).</div>
+            <div onclick="selectPayment(this,'razorpay')" class="payment-option">
+              <div class="payment-icon">⚡</div>
+              <div class="payment-info">
+                <h4>Razorpay — Instant Payment</h4>
+                <p>UPI, Net Banking, Credit/Debit Card. Payment confirmed within minutes.</p>
+                <span class="payment-badge">Most Popular</span>
+              </div>
+            </div>
+            <div onclick="selectPayment(this,'emi')" class="payment-option">
+              <div class="payment-icon">📅</div>
+              <div class="payment-info">
+                <h4>EMI Options</h4>
+                <p>Flexible monthly instalments starting from ₹${emiPlans[0].monthly.toLocaleString()}/month.</p>
+                <span class="payment-badge">No-cost EMI available</span>
+              </div>
+            </div>
+            <div id="${cardId}-emi-table" style="display:none;">
+              <table class="emi-table">
+                <thead><tr><th>Plan</th><th>Monthly EMI</th><th>Total Amount</th><th>Interest</th></tr></thead>
+                <tbody>
+                  ${emiPlans.map(p => `<tr><td>${p.label}</td><td>₹${p.monthly.toLocaleString()}/mo</td><td>₹${p.total.toLocaleString()}</td><td>${p.rate === 0 ? "Free" : p.rate + "% p.a."}</td></tr>`).join("")}
+                </tbody>
+              </table>
+            </div>
+            <div onclick="selectPayment(this,'cheque')" class="payment-option">
+              <div class="payment-icon">🏦</div>
+              <div class="payment-info">
+                <h4>Cheque / NEFT / RTGS</h4>
+                <p>Bank transfer with 2–3 business day processing. Preferred for large orders.</p>
+              </div>
+            </div>
+            <div onclick="selectPayment(this,'cod')" class="payment-option">
+              <div class="payment-icon">💵</div>
+              <div class="payment-info">
+                <h4>Cash on Delivery</h4>
+                <p>Pay on delivery. Available for orders under ₹50,000. 2–5 day dispatch.</p>
+              </div>
+            </div>
+            <button class="action-btn primary" style="margin-top:4px" onclick="proceedPayment('${device.name}')">Proceed to Payment</button>
+          </div>
+        </div>
+
+        <!-- CHANGE 2 & 3 & 4: PDF Tab — iframe preview with data injection + Export button -->
+        <div class="tab-content" id="${cardId}-pdf">
+          <div class="pdf-preview-wrap">
+            <div class="pdf-preview-toolbar">
+              <span class="pdf-preview-title">📄 Proposal Preview — ${device.name}</span>
+              <button class="action-btn primary pdf-export-btn" onclick="exportProposalPDF('${cardId}-proposalFrame')">⬇ Export to PDF</button>
+            </div>
+            <div class="pdf-iframe-scaler">
+              <iframe
+                id="${cardId}-proposalFrame"
+                src="proposal-template.html"
+                class="pdf-iframe"
+                onload="injectProposalData('${cardId}-proposalFrame', '${cardId}')"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   `;
-  chat.appendChild(card);
-  // Attach order button safely with real URL
-  card.querySelector(`#order-btn-${device.name}`).addEventListener("click", () => {
-    orderDevice(device.name, device.link);
-  });
-  scrollBottom(card);
 
+  // Store proposal data on the card element for retrieval by injectProposalData
+  card.dataset.proposal = JSON.stringify(proposalData);
+  card.id = cardId + "-row";
+
+  chat.appendChild(card);
+
+  // CHANGE 1: "Start over" button appended OUTSIDE the result-card, after the card row
+  const restartWrap = document.createElement("div");
+  restartWrap.className = "restart-btn-outer";
+  restartWrap.innerHTML = `<button class="action-btn secondary" onclick="restartFlow()">↩ Start over</button>`;
+  chat.appendChild(restartWrap);
+
+  scrollBottom(card);
   state.step = "done";
   userInput.placeholder = "Ask a follow-up question...";
 }
 
-function orderDevice(name, link) {
+// CHANGE 4: Inject proposal data into iframe via fillProposal()
+function injectProposalData(frameId, cardId) {
+  const frame = document.getElementById(frameId);
+  if (!frame) return;
+
+  // Retrieve proposal data stored on the card's parent row element
+  const cardRow = document.getElementById(cardId + "-row");
+  let data = {};
+  if (cardRow && cardRow.dataset.proposal) {
+    try { data = JSON.parse(cardRow.dataset.proposal); } catch(e) {}
+  }
+
+  // Try calling fillProposal inside the iframe
+  try {
+    if (frame.contentWindow && typeof frame.contentWindow.fillProposal === "function") {
+      frame.contentWindow.fillProposal(data);
+    }
+  } catch(e) {
+    // Cross-origin or not yet ready — silently ignore
+    console.warn("Could not inject proposal data:", e);
+  }
+}
+
+// CHANGE 3: Export iframe contents to PDF via browser print
+function exportProposalPDF(frameId) {
+  const frame = document.getElementById(frameId);
+  if (!frame || !frame.contentWindow) return;
+  try {
+    frame.contentWindow.focus();
+    frame.contentWindow.print();
+  } catch(e) {
+    // Fallback: open template in new tab for printing
+    window.open("proposal-template.html", "_blank");
+  }
+}
+
+function buildFAQ(deviceName, lph, tdh, hp, brand) {
+  const faqs = [
+    { q: `Why was the ${deviceName} recommended?`, a: `The ${deviceName} is matched to your calculated flow rate of ${lph.toLocaleString()} LPH. Each device in the JivaBot line covers a specific flow range — Vipassa up to 9,000 LPH, Jhanavi up to 30,000 LPH, and Dihanga up to 50,000 LPH.` },
+    { q: "What does TDH mean?", a: `Total Dynamic Head (TDH = ${Math.round(tdh)} m in your case) is the total pressure your pump must overcome — including the static depth of the bore, friction in pipes, and minor fittings losses. A higher TDH reduces the effective discharge.` },
+    { q: "Can I use the device with a different pump?", a: `Yes, the ${deviceName} is compatible with any pump achieving a similar discharge (${lph.toLocaleString()} LPH ± 20%). If you upgrade or change your pump, we recommend re-running the calculation.` },
+    { q: "What is the installation time?", a: `Standard installation takes 4–8 hours depending on field layout and pipe routing. JivaBot offers on-site installation support in most districts — contact your local dealer for availability.` },
+    { q: "Is this suitable for drip irrigation?", a: `Yes. The ${deviceName} is designed to integrate with drip, sprinkler, and flood irrigation systems. The appropriate device size ensures stable pressure for drip emitters and sprinkler heads.` },
+    { q: "What warranty is offered?", a: `All JivaBot devices come with a 2-year manufacturing warranty and optional extended warranty of 3+2 years. Covers defects in materials and workmanship under normal field conditions.` }
+  ];
+  return faqs.map(f => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFAQ(this)" aria-expanded="false">
+        ${f.q}<span class="faq-chevron">▼</span>
+      </button>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join("");
+}
+
+function toggleFAQ(btn) {
+  const ans = btn.nextElementSibling;
+  const isOpen = btn.classList.contains("open");
+  btn.classList.toggle("open", !isOpen);
+  ans.classList.toggle("open", !isOpen);
+  btn.setAttribute("aria-expanded", String(!isOpen));
+}
+
+function switchTab(cardId, tab) {
+  const card = document.getElementById(cardId);
+  card.querySelectorAll(".result-tab").forEach(t => t.classList.remove("active"));
+  card.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+  const tabs = card.querySelectorAll(".result-tab");
+  const tabMap = ["summary","faq","payments","pdf"];
+  tabs[tabMap.indexOf(tab)]?.classList.add("active");
+  const content = document.getElementById(`${cardId}-${tab}`);
+  if (content) content.classList.add("active");
+}
+
+let selectedPaymentMethod = null;
+function selectPayment(el, method) {
+  el.closest(".result-card").querySelectorAll(".payment-option").forEach(p => p.classList.remove("selected"));
+  el.classList.add("selected");
+  selectedPaymentMethod = method;
+  const emiTable = el.closest(".result-card").querySelector("[id$='-emi-table']");
+  if (emiTable) emiTable.style.display = method === "emi" ? "block" : "none";
+}
+
+function proceedPayment(name) {
+  const method = selectedPaymentMethod || "online";
+  addMessage("user", `Proceed to payment for ${name} via ${method}`);
+  pujaSpeak(`Great! Initiating <strong>${method === "emi" ? "EMI" : method === "cod" ? "Cash on Delivery" : method === "cheque" ? "Bank Transfer" : "Razorpay"}</strong> payment for the <strong>${name}</strong>. Our team will contact you shortly to finalise and confirm your order. 🌿`);
+}
+
+function orderDevice(name) {
   addMessage("user", `I'd like to order the ${name}`);
-  window.open(link, "_blank", "noopener,noreferrer");
-  pujaSpeak(`Excellent choice! 🌿 Opening the <strong>${name}</strong> order page for you. Complete your order there and our team will arrange delivery to your farm.`, 800);
+  pujaSpeak(`Excellent choice! 🌿 Redirecting you to the <strong>${name}</strong> order page. Our team will get in touch with you shortly to confirm the details and arrange delivery.`);
 }
 
 function askMoreQuestions() {
@@ -1208,7 +1150,7 @@ function askMoreQuestions() {
 
 function restartFlow() {
   addMessage("user", "Start over");
-  Object.assign(state, { step:"start", pumpType:null, brand:null, hp:null, pumpData:null, boreDepth:null, distance:null, pipeDiameter:null, assumptions:[], conversationHistory:[] });
+  Object.assign(state, { step:"start", pumpType:null, brand:null, hp:null, pumpData:null, boreDepth:null, distance:null, pipeDiameter:null, assumptions:[], conversationHistory:[], lastRec:null });
   addDivider("New Session");
   startFlow();
 }
@@ -1218,23 +1160,16 @@ function restartFlow() {
 async function handleFreeform(text) {
   showTyping();
   state.conversationHistory.push({ role: "user", content: text });
-
-  const context = `You are Puja AI, a friendly and knowledgeable farm device advisor. The user has completed a device recommendation session with these results:
+  const context = `You are JivaBot, a friendly and knowledgeable farm device advisor. The user has completed a device recommendation session:
 - Pump: ${state.brand || "unknown"} ${state.hp || ""}HP ${state.pumpType || ""}
-- Bore depth: ${state.boreDepth}m, Distance: ${state.distance}m, Pipe: ${state.pipeDiameter} inch
-- Recommended device: based on calculated flow
-Answer their follow-up question helpfully and concisely. Stay focused on farm irrigation and the Puja AI product line (Vipassa 1", Jhanavi 2", Dihanga 3").`;
-
+- Bore depth: ${state.boreDepth}m, Distance to field: ${state.distance}m, Pipe: ${state.pipeDiameter} inch
+- Recommended device: ${state.lastRec ? state.lastRec.device.name + ' ' + state.lastRec.device.size + ', flow ' + state.lastRec.lph + ' LPH, TDH ' + Math.round(state.lastRec.tdh) + 'm' : 'see earlier calculation'}
+Answer follow-up questions helpfully. Stay focused on farm irrigation and the JivaBot product line (Vipassa 1", Jhanavi 2", Dihanga 3").`;
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        system: context,
-        messages: state.conversationHistory
-      })
+      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system: context, messages: state.conversationHistory })
     });
     const data = await res.json();
     const reply = data.content?.map(b => b.text || "").join("") || "I'm not sure — please try rephrasing.";
@@ -1253,30 +1188,16 @@ async function handleSend() {
   const text = userInput.value.trim();
   if (!text) return;
   userInput.value = "";
-
-  if (state.step === "model_number") {
-    addMessage("user", text);
-    state.assumptions.push("model_assumed");
-    const hp = parseFloat(state.hp) || 2;
-    state.pumpData = { ratedHead: hp * 30, ratedDischarge: hp * 45, exact: false };
-    await pujaSpeak(`Using estimated specs for model <strong>${text}</strong>.`);
-    addDivider("Field Information");
-    await askBoreDepth();
-  } else if (state.step === "freeform" || state.step === "done") {
-    addMessage("user", text);
-    state.step = "freeform";
+  if (state.step === "freeform" || state.step === "done") {
+    addMessage("user", text); state.step = "freeform";
     await handleFreeform(text);
   } else {
     addMessage("user", text);
-    await pujaSpeak(`Please use the option buttons above to navigate, or wait for the current step to complete.`);
+    await pujaSpeak(`Please use the option buttons above to navigate the current step.`);
   }
 }
 
-userInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") handleSend();
-});
-
-// ── INIT ──
+userInput.addEventListener("keydown", e => { if (e.key === "Enter") handleSend(); });
 startFlow();
 </script>
 </body>
