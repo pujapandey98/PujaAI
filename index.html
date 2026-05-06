@@ -27,47 +27,16 @@
     --radius-sm: 10px;
   }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
 
   /* ── HEADER ── */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 68px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 68px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
   .brand { display: flex; align-items: center; gap: 12px; }
-  .brand-logo {
-    width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 18px; color: white; font-weight: 600; letter-spacing: -0.5px;
-  }
+  .brand-logo { width: 40px; height: 40px; background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 18px; color: white; font-weight: 600; letter-spacing: -0.5px; }
   .brand-text { display: flex; flex-direction: column; }
   .brand-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; letter-spacing: -0.3px; color: var(--ink); line-height: 1; }
   .brand-tag { font-size: 11px; color: var(--ink-faint); font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 2px; }
-
-  .status-pill {
-    display: flex; align-items: center; gap: 6px;
-    background: #f0f6f2; border: 1px solid #c8dece; border-radius: 100px;
-    padding: 6px 14px; font-size: 12px; color: var(--sage); font-weight: 500;
-  }
+  .status-pill { display: flex; align-items: center; gap: 6px; background: #f0f6f2; border: 1px solid #c8dece; border-radius: 100px; padding: 6px 14px; font-size: 12px; color: var(--sage); font-weight: 500; }
   .status-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
@@ -75,22 +44,13 @@
   main { flex: 1; display: flex; flex-direction: column; max-width: 780px; width: 100%; margin: 0 auto; padding: 0 1rem; }
 
   /* ── CHAT ── */
-  #chat-container {
-    flex: 1; padding: 2rem 0 1rem;
-    display: flex; flex-direction: column; gap: 1.5rem;
-    min-height: calc(100vh - 68px - 160px);
-    overflow-y: auto;
-  }
+  #chat-container { flex: 1; padding: 2rem 0 1rem; display: flex; flex-direction: column; gap: 1.5rem; min-height: calc(100vh - 68px - 160px); overflow-y: auto; }
 
   .message-row { display: flex; gap: 12px; animation: fadeUp 0.35s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .message-row.user { flex-direction: row-reverse; }
 
-  .avatar {
-    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; margin-top: 2px;
-  }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; margin-top: 2px; }
   .avatar.puja { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); color: white; font-family: 'Playfair Display', serif; }
   .avatar.user { background: var(--earth-light); color: var(--earth); }
 
@@ -102,53 +62,29 @@
   .bubble.puja { border-bottom-left-radius: 4px; }
   .bubble strong { font-weight: 600; color: var(--sage); }
   .message-row.user .bubble strong { color: rgba(255,255,255,0.8); }
-
   .sender-label { font-size: 11px; color: var(--ink-faint); font-weight: 500; letter-spacing: 0.3px; padding: 0 4px; }
 
   /* ── OPTIONS ── */
   .options-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-  .option-btn {
-    background: var(--surface); border: 1.5px solid var(--border-strong);
-    border-radius: 100px; padding: 9px 20px;
-    font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; color: var(--ink);
-    cursor: pointer; transition: all 0.2s; white-space: nowrap;
-  }
+  .option-btn { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 100px; padding: 9px 20px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; color: var(--ink); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
   .option-btn:hover { border-color: var(--sage); background: var(--sage-light); color: var(--sage); transform: translateY(-1px); }
   .option-btn:active { transform: translateY(0); }
   .option-btn.selected { border-color: var(--sage); background: var(--sage); color: white; }
 
   /* ── INLINE INPUT ── */
   .inline-input-wrap { display: flex; gap: 8px; margin-top: 4px; }
-  .inline-input {
-    flex: 1; background: var(--surface); border: 1.5px solid var(--border-strong);
-    border-radius: 100px; padding: 9px 18px;
-    font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--ink);
-    outline: none; transition: border-color 0.2s;
-  }
+  .inline-input { flex: 1; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 100px; padding: 9px 18px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--ink); outline: none; transition: border-color 0.2s; }
   .inline-input:focus { border-color: var(--sage); }
   .inline-input::placeholder { color: var(--ink-faint); }
-  .inline-submit {
-    background: var(--sage); color: white; border: none; border-radius: 100px;
-    padding: 9px 20px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500;
-    cursor: pointer; transition: background 0.2s;
-  }
+  .inline-submit { background: var(--sage); color: white; border: none; border-radius: 100px; padding: 9px 20px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; transition: background 0.2s; }
   .inline-submit:hover { background: #3d6b4a; }
 
-  /* ── DISTANCE UNIT TOGGLE ── */
+  /* ── UNIT TOGGLE (shared for bore depth & distance) ── */
   .unit-toggle-wrap { margin-top: 4px; }
-  .unit-toggle-row {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
-  }
+  .unit-toggle-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
   .unit-toggle-label { font-size: 12px; color: var(--ink-faint); font-weight: 500; }
-  .unit-toggle {
-    display: flex; background: var(--cream); border: 1.5px solid var(--border-strong);
-    border-radius: 100px; overflow: hidden; padding: 3px;
-  }
-  .unit-btn {
-    border: none; background: transparent; border-radius: 100px;
-    padding: 4px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif;
-    font-weight: 600; color: var(--ink-faint); cursor: pointer; transition: all 0.2s;
-  }
+  .unit-toggle { display: flex; background: var(--cream); border: 1.5px solid var(--border-strong); border-radius: 100px; overflow: hidden; padding: 3px; }
+  .unit-btn { border: none; background: transparent; border-radius: 100px; padding: 4px 14px; font-size: 12px; font-family: 'DM Sans', sans-serif; font-weight: 600; color: var(--ink-faint); cursor: pointer; transition: all 0.2s; }
   .unit-btn.active { background: var(--sage); color: white; }
 
   /* ── RESULT CARD ── */
@@ -159,22 +95,11 @@
   .result-body { padding: 0; display: flex; flex-direction: column; }
 
   /* ── TABS ── */
-  .result-tabs {
-    display: flex; border-bottom: 1px solid var(--border);
-    background: var(--surface);
-  }
-  .result-tab {
-    flex: 1; padding: 14px 10px;
-    font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600;
-    color: var(--ink-faint); background: transparent; border: none;
-    cursor: pointer; transition: all 0.2s;
-    border-bottom: 2px solid transparent;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
+  .result-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .result-tab { flex: 1; padding: 14px 10px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600; color: var(--ink-faint); background: transparent; border: none; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; }
   .result-tab:hover { color: var(--sage); background: var(--sage-light); }
   .result-tab.active { color: var(--sage); border-bottom-color: var(--sage); background: #f6fbf8; }
   .result-tab .tab-icon { font-size: 15px; }
-
   .tab-content { display: none; padding: 20px 24px; }
   .tab-content.active { display: flex; flex-direction: column; gap: 16px; }
 
@@ -183,37 +108,21 @@
   .metric-box { background: var(--cream); border-radius: 12px; padding: 12px 14px; text-align: center; }
   .metric-val { font-size: 18px; font-weight: 600; color: var(--sage); font-family: 'Playfair Display', serif; }
   .metric-label { font-size: 11px; color: var(--ink-faint); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
-
   .confidence-bar-wrap { display: flex; flex-direction: column; gap: 6px; }
   .confidence-label-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-muted); }
   .confidence-bar { height: 8px; background: var(--sage-light); border-radius: 100px; overflow: hidden; }
   .confidence-fill { height: 100%; background: linear-gradient(90deg, var(--sage) 0%, var(--sage-mid) 100%); border-radius: 100px; transition: width 1s ease; }
-
-  .result-explanation {
-    font-size: 14px; line-height: 1.7; color: var(--ink-muted);
-    background: var(--earth-light); border-radius: 12px; padding: 14px 16px;
-  }
-
+  .result-explanation { font-size: 14px; line-height: 1.7; color: var(--ink-muted); background: var(--earth-light); border-radius: 12px; padding: 14px 16px; }
   .result-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-  .action-btn {
-    flex: 1; min-width: 120px; padding: 11px 16px; border-radius: 100px;
-    font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600;
-    cursor: pointer; text-align: center; transition: all 0.2s; border: 1.5px solid;
-  }
+  .action-btn { flex: 1; min-width: 120px; padding: 11px 16px; border-radius: 100px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; border: 1.5px solid; }
   .action-btn.primary { background: var(--sage); color: white; border-color: var(--sage); }
   .action-btn.primary:hover { background: #3d6b4a; }
   .action-btn.secondary { background: transparent; color: var(--ink); border-color: var(--border-strong); }
   .action-btn.secondary:hover { background: var(--sage-light); border-color: var(--sage); color: var(--sage); }
 
-  /* ── FAQ TAB ── */
+  /* ── FAQ ── */
   .faq-item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-  .faq-q {
-    width: 100%; text-align: left; background: var(--cream);
-    border: none; padding: 14px 16px;
-    font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 600;
-    color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center;
-    transition: background 0.2s;
-  }
+  .faq-q { width: 100%; text-align: left; background: var(--cream); border: none; padding: 14px 16px; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 600; color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
   .faq-q:hover { background: var(--sage-light); }
   .faq-q.open { background: var(--sage-light); color: var(--sage); }
   .faq-q .faq-chevron { transition: transform 0.3s; font-size: 12px; color: var(--ink-faint); }
@@ -221,83 +130,58 @@
   .faq-a { display: none; padding: 12px 16px; font-size: 13px; line-height: 1.7; color: var(--ink-muted); background: white; border-top: 1px solid var(--border); }
   .faq-a.open { display: block; }
 
-  /* ── PAYMENTS TAB ── */
-  .payment-option {
-    display: flex; align-items: flex-start; gap: 14px;
-    border: 1.5px solid var(--border); border-radius: 14px; padding: 16px;
-    cursor: pointer; transition: all 0.2s;
-  }
+  /* ── PAYMENTS ── */
+  .payment-option { display: flex; align-items: flex-start; gap: 14px; border: 1.5px solid var(--border); border-radius: 14px; padding: 16px; cursor: pointer; transition: all 0.2s; }
   .payment-option:hover { border-color: var(--sage); background: #f6fbf8; }
   .payment-option.selected { border-color: var(--sage); background: #f6fbf8; }
   .payment-icon { font-size: 26px; flex-shrink: 0; }
   .payment-info h4 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
   .payment-info p { font-size: 12px; color: var(--ink-faint); line-height: 1.5; }
-  .payment-badge {
-    display: inline-block; background: var(--sage-light); color: var(--sage);
-    font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
-    border-radius: 100px; padding: 2px 8px; margin-top: 4px;
-  }
-  .emi-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .emi-table th { background: var(--sage); color: white; padding: 9px 12px; text-align: left; font-weight: 600; }
-  .emi-table th:first-child { border-radius: 8px 0 0 0; }
-  .emi-table th:last-child { border-radius: 0 8px 0 0; }
-  .emi-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); color: var(--ink-muted); }
-  .emi-table tr:last-child td { border-bottom: none; }
-  .emi-table tr:nth-child(even) td { background: var(--cream); }
+  .payment-badge { display: inline-block; background: var(--sage-light); color: var(--sage); font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; border-radius: 100px; padding: 2px 8px; margin-top: 4px; }
 
   /* ── PDF TAB ── */
-  /* CHANGE 2 & 3: PDF preview styles replacing "coming soon" */
-  .pdf-preview-wrap {
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  .pdf-preview-toolbar {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--cream); border: 1px solid var(--border);
-    border-radius: 12px; padding: 10px 16px;
-  }
-  .pdf-preview-title {
-    font-size: 14px; font-weight: 600; color: var(--ink);
-  }
-  .pdf-export-btn {
-    flex: 0 !important; min-width: auto !important;
-    padding: 9px 20px !important; font-size: 13px !important;
-    white-space: nowrap;
-  }
-  /* Scaled iframe wrapper — proposal-template.html is A4 (210mm ≈ 794px wide).
-     We scale it down to fit snugly inside the card. */
-  .pdf-iframe-scaler {
-    width: 100%;
-    overflow: hidden;
+  .pdf-preview-wrap { display: flex; flex-direction: column; gap: 12px; }
+  .pdf-preview-toolbar { display: flex; align-items: center; justify-content: space-between; background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; }
+  .pdf-preview-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .pdf-export-btn { flex: 0 !important; min-width: auto !important; padding: 9px 20px !important; font-size: 13px !important; white-space: nowrap; }
+
+  /* Inline PDF rendered as styled HTML (no iframe needed) */
+  .pdf-doc {
+    background: #fff;
     border: 1px solid var(--border);
     border-radius: 12px;
-    background: #fff;
-    /* height = iframe natural height × scale factor */
-    height: 420px;
+    padding: 32px 36px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #1c1c1a;
   }
-  .pdf-iframe {
-    width: 794px;           /* A4 natural pixel width */
-    height: 1123px;         /* A4 natural pixel height */
-    border: none;
-    transform-origin: top left;
-    transform: scale(0.53); /* 53% → fits ~420px tall in the card */
-    display: block;
-  }
+  .pdf-doc .pdf-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--sage); padding-bottom: 16px; margin-bottom: 20px; }
+  .pdf-doc .pdf-logo { height: 40px; width: auto; display: block; object-fit: contain; object-position: left center; }
+  .pdf-doc .pdf-brand-sub { font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 4px; }
+  .pdf-doc .pdf-date { font-size: 12px; color: var(--ink-faint); text-align: right; }
+  .pdf-doc .pdf-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 18px; }
+  .pdf-doc .pdf-section { margin-bottom: 18px; }
+  .pdf-doc .pdf-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--sage); border-bottom: 1px solid var(--sage-light); padding-bottom: 4px; margin-bottom: 10px; }
+  .pdf-doc .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+  .pdf-doc .pdf-row { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid #f0f0ec; }
+  .pdf-doc .pdf-row:last-child { border-bottom: none; }
+  .pdf-doc .pdf-label { color: var(--ink-faint); font-size: 12px; }
+  .pdf-doc .pdf-value { font-weight: 600; color: var(--ink); font-size: 12px; text-align: right; }
+  .pdf-doc .pdf-device-box { background: linear-gradient(135deg, var(--sage) 0%, var(--sage-mid) 100%); color: white; border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+  .pdf-doc .pdf-device-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; }
+  .pdf-doc .pdf-device-sub { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+  .pdf-doc .pdf-confidence { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .pdf-doc .pdf-conf-bar { height: 6px; background: rgba(255,255,255,0.3); border-radius: 100px; overflow: hidden; }
+  .pdf-doc .pdf-conf-fill { height: 100%; background: white; border-radius: 100px; }
+  .pdf-doc .pdf-footer { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 8px; font-size: 11px; color: var(--ink-faint); text-align: center; }
 
-  /* ── RESTART BUTTON (outside card) ── */
-  /* CHANGE 1: Start over button outside result-card */
-  .restart-btn-outer {
-    display: flex; justify-content: center; margin-top: 8px; margin-bottom: 4px;
-  }
-  .restart-btn-outer .action-btn {
-    flex: 0; min-width: 140px; max-width: 200px;
-  }
+  /* ── RESTART ── */
+  .restart-btn-outer { display: flex; justify-content: center; margin-top: 8px; margin-bottom: 4px; }
+  .restart-btn-outer .action-btn { flex: 0; min-width: 140px; max-width: 200px; }
 
   /* ── TYPING ── */
-  .typing-indicator {
-    display: flex; align-items: center; gap: 4px;
-    padding: 12px 16px; background: var(--puja-bubble); border: 1px solid var(--border);
-    border-radius: var(--radius); border-bottom-left-radius: 4px; width: fit-content;
-  }
+  .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 12px 16px; background: var(--puja-bubble); border: 1px solid var(--border); border-radius: var(--radius); border-bottom-left-radius: 4px; width: fit-content; }
   .typing-dot { width: 7px; height: 7px; background: var(--sage-mid); border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
   .typing-dot:nth-child(2) { animation-delay: 0.2s; }
   .typing-dot:nth-child(3) { animation-delay: 0.4s; }
@@ -305,19 +189,11 @@
 
   /* ── INPUT BAR ── */
   #input-bar { position: sticky; bottom: 0; background: var(--cream); padding: 1rem 0 1.5rem; border-top: 1px solid var(--border); }
-  .input-row {
-    display: flex; gap: 10px; align-items: center;
-    background: var(--surface); border: 1.5px solid var(--border-strong);
-    border-radius: 100px; padding: 8px 8px 8px 20px; transition: border-color 0.2s;
-  }
+  .input-row { display: flex; gap: 10px; align-items: center; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 100px; padding: 8px 8px 8px 20px; transition: border-color 0.2s; }
   .input-row:focus-within { border-color: var(--sage); }
   #user-input { flex: 1; border: none; outline: none; font-size: 15px; font-family: 'DM Sans', sans-serif; color: var(--ink); background: transparent; }
   #user-input::placeholder { color: var(--ink-faint); }
-  #send-btn {
-    width: 40px; height: 40px; background: var(--sage); border: none; border-radius: 50%;
-    color: white; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s, transform 0.1s; flex-shrink: 0;
-  }
+  #send-btn { width: 40px; height: 40px; background: var(--sage); border: none; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.1s; flex-shrink: 0; }
   #send-btn:hover { background: #3d6b4a; }
   #send-btn:active { transform: scale(0.95); }
   #send-btn svg { width: 18px; height: 18px; }
@@ -328,15 +204,13 @@
   .chat-divider span { font-size: 11px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.8px; white-space: nowrap; }
   .chat-divider::before, .chat-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     header { padding: 0 1rem; }
     .metrics-row { grid-template-columns: 1fr 1fr; }
     .result-tab { font-size: 12px; padding: 12px 6px; }
     .result-tab .tab-label { display: none; }
     .result-tab .tab-icon { font-size: 18px; }
-    .pdf-iframe-scaler { height: 300px; }
-    .pdf-iframe { transform: scale(0.38); }
+    .pdf-doc { padding: 20px 16px; }
   }
 </style>
 </head>
@@ -372,6 +246,7 @@
 </main>
 
 <script>
+// ── PUMP DATABASE ──
 const PUMP_DB = {
   SHAKTI: {
     MONOBLOCK: { "0.5":{ratedHead:20,ratedDischarge:60},"1":{ratedHead:30,ratedDischarge:80},"1.5":{ratedHead:35,ratedDischarge:100},"2":{ratedHead:40,ratedDischarge:130},"3":{ratedHead:50,ratedDischarge:160},"7":{ratedHead:65,ratedDischarge:220},"10":{ratedHead:80,ratedDischarge:300},"15":{ratedHead:100,ratedDischarge:420} },
@@ -393,10 +268,13 @@ const PUMP_DB = {
 
 const FRICTION_FACTORS = { "1": 0.12, "1.5": 0.07, "2": 0.04 };
 
+// ── STATE ──
 const state = {
   step: "start",
   pumpType: null, brand: null, hp: null, pumpData: null,
-  boreDepth: null, distance: null, pipeDiameter: null,
+  boreDepth: null, boreDepthDisplay: null,
+  distance: null, distanceDisplay: null,
+  pipeDiameter: null,
   assumptions: [], conversationHistory: [],
   lastRec: null
 };
@@ -404,6 +282,7 @@ const state = {
 const chat = document.getElementById("chat-container");
 const userInput = document.getElementById("user-input");
 
+// ── HELPERS ──
 function normalizeBrand(raw) {
   const r = raw.toLowerCase().trim();
   if (r.includes("shakti") || r.includes("shakthi")) return "SHAKTI";
@@ -439,7 +318,7 @@ function calcDischarge(tdh, pumpData) {
 
 function getDevice(lph) {
   if (lph <= 9000) return { name: "Vipasa", size: '1"', link: "#vipasa" };
-  if (lph <= 30000) return { name: "Jhanavi", size: '2"', link: "#jhanavi" };
+  if (lph <= 30000) return { name: "Jahnavi", size: '2"', link: "#jahnavi" };
   if (lph <= 50000) return { name: "Dihanga", size: '3"', link: "#dihanga" };
   return null;
 }
@@ -462,8 +341,10 @@ function confidenceLabel(s) {
   return "Low — please verify inputs";
 }
 
-// ── RENDER HELPERS ──
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+function scrollBottom(el) { const t = el || chat.lastElementChild; if (t) setTimeout(() => t.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60); }
 
+// ── RENDER HELPERS ──
 function addMessage(role, html) {
   const row = document.createElement("div");
   row.className = `message-row ${role}`;
@@ -490,13 +371,9 @@ function addMessage(role, html) {
 function addOptions(options, onSelect) {
   const row = document.createElement("div");
   row.className = "message-row puja";
-  const av = document.createElement("div");
-  av.className = "avatar puja";
-  av.textContent = "P";
-  const wrap = document.createElement("div");
-  wrap.className = "bubble-wrap";
-  const grid = document.createElement("div");
-  grid.className = "options-grid";
+  const av = document.createElement("div"); av.className = "avatar puja"; av.textContent = "P";
+  const wrap = document.createElement("div"); wrap.className = "bubble-wrap";
+  const grid = document.createElement("div"); grid.className = "options-grid";
   options.forEach(opt => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
@@ -510,61 +387,19 @@ function addOptions(options, onSelect) {
     };
     grid.appendChild(btn);
   });
-  wrap.appendChild(grid);
-  row.appendChild(av);
-  row.appendChild(wrap);
-  chat.appendChild(row);
-  scrollBottom(row);
-}
-
-function addInlineInput(placeholder, unit, onSubmit) {
-  const row = document.createElement("div");
-  row.className = "message-row puja";
-  const av = document.createElement("div");
-  av.className = "avatar puja";
-  av.textContent = "P";
-  const wrap = document.createElement("div");
-  wrap.className = "bubble-wrap";
-  const iwrap = document.createElement("div");
-  iwrap.className = "inline-input-wrap";
-  const inp = document.createElement("input");
-  inp.className = "inline-input";
-  inp.type = "text";
-  inp.placeholder = placeholder;
-  const btn = document.createElement("button");
-  btn.className = "inline-submit";
-  btn.textContent = "Submit";
-  const submit = () => {
-    const v = inp.value.trim();
-    if (!v) return;
-    inp.disabled = true; btn.disabled = true;
-    addMessage("user", v + (unit ? " " + unit : ""));
-    onSubmit(v);
-  };
-  btn.onclick = submit;
-  inp.onkeydown = e => { if (e.key === "Enter") submit(); };
-  iwrap.appendChild(inp); iwrap.appendChild(btn);
-  wrap.appendChild(iwrap);
-  row.appendChild(av); row.appendChild(wrap);
-  chat.appendChild(row);
-  scrollBottom(row);
-  setTimeout(() => inp.focus(), 100);
+  wrap.appendChild(grid); row.appendChild(av); row.appendChild(wrap);
+  chat.appendChild(row); scrollBottom(row);
 }
 
 function addOptionsWithTextInput(options, placeholder, onSubmit) {
   const row = document.createElement("div");
   row.className = "message-row puja";
-  const av = document.createElement("div");
-  av.className = "avatar puja";
-  av.textContent = "P";
-  const wrap = document.createElement("div");
-  wrap.className = "bubble-wrap";
-  const grid = document.createElement("div");
-  grid.className = "options-grid";
+  const av = document.createElement("div"); av.className = "avatar puja"; av.textContent = "P";
+  const wrap = document.createElement("div"); wrap.className = "bubble-wrap";
+  const grid = document.createElement("div"); grid.className = "options-grid";
   let submitted = false;
   const doSubmit = (val, displayVal) => {
-    if (submitted) return;
-    submitted = true;
+    if (submitted) return; submitted = true;
     grid.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
     inp.disabled = true; submitBtn.disabled = true;
     addMessage("user", displayVal || val);
@@ -580,114 +415,101 @@ function addOptionsWithTextInput(options, placeholder, onSubmit) {
   const divider = document.createElement("div");
   divider.style.cssText = "display:flex;align-items:center;gap:8px;margin:6px 0 2px;";
   divider.innerHTML = `<div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:11px;color:var(--ink-faint);white-space:nowrap">or type below</span><div style="flex:1;height:1px;background:var(--border)"></div>`;
-  const iwrap = document.createElement("div");
-  iwrap.className = "inline-input-wrap";
-  const inp = document.createElement("input");
-  inp.className = "inline-input"; inp.type = "text"; inp.placeholder = placeholder;
-  const submitBtn = document.createElement("button");
-  submitBtn.className = "inline-submit"; submitBtn.textContent = "Submit";
+  const iwrap = document.createElement("div"); iwrap.className = "inline-input-wrap";
+  const inp = document.createElement("input"); inp.className = "inline-input"; inp.type = "text"; inp.placeholder = placeholder;
+  const submitBtn = document.createElement("button"); submitBtn.className = "inline-submit"; submitBtn.textContent = "Submit";
   const trySubmitText = () => { const v = inp.value.trim(); if (!v) return; doSubmit(v, v); };
   submitBtn.onclick = trySubmitText;
   inp.onkeydown = e => { if (e.key === "Enter") trySubmitText(); };
   iwrap.appendChild(inp); iwrap.appendChild(submitBtn);
   wrap.appendChild(grid); wrap.appendChild(divider); wrap.appendChild(iwrap);
   row.appendChild(av); row.appendChild(wrap);
-  chat.appendChild(row);
-  scrollBottom(row);
+  chat.appendChild(row); scrollBottom(row);
 }
 
-// ── DISTANCE INPUT WITH UNIT TOGGLE ──
-function addDistanceInput(onSubmit) {
-  const DISTANCES_M = [
-    {label:"50 m", value:50}, {label:"100 m", value:100}, {label:"150 m", value:150},
-    {label:"200 m", value:200}, {label:"300 m", value:300}
-  ];
-  const DISTANCES_FT = [
-    {label:"100 ft", value:30.5}, {label:"150 ft", value:45.7}, {label:"200 ft", value:61},
-    {label:"300 ft", value:91.4}, {label:"500 ft", value:152.4}, {label:"660 ft", value:201.2}
-  ];
+// ── SHARED DEPTH/DISTANCE INPUT WITH M/FT TOGGLE ──
+// type: "bore" or "distance" — controls preset values shown
+function addDepthDistanceInput(type, onSubmit) {
+  const BORE_M =     [{label:"60 m",value:60},{label:"90 m",value:90},{label:"120 m",value:120},{label:"150 m",value:150},{label:"180 m",value:180}];
+  const BORE_FT =    [{label:"200 ft",value:61},{label:"300 ft",value:91.4},{label:"400 ft",value:121.9},{label:"500 ft",value:152.4},{label:"600 ft",value:182.9}];
+  const DIST_M =     [{label:"50 m",value:50},{label:"100 m",value:100},{label:"150 m",value:150},{label:"200 m",value:200},{label:"300 m",value:300}];
+  const DIST_FT =    [{label:"100 ft",value:30.5},{label:"150 ft",value:45.7},{label:"200 ft",value:61},{label:"300 ft",value:91.4},{label:"500 ft",value:152.4},{label:"660 ft",value:201.2}];
 
   const row = document.createElement("div");
   row.className = "message-row puja";
-  const av = document.createElement("div");
-  av.className = "avatar puja"; av.textContent = "P";
-  const wrap = document.createElement("div");
-  wrap.className = "bubble-wrap";
+  const av = document.createElement("div"); av.className = "avatar puja"; av.textContent = "P";
+  const wrap = document.createElement("div"); wrap.className = "bubble-wrap";
 
   let currentUnit = "m";
   let submitted = false;
 
   const doSubmit = (meters, displayText) => {
-    if (submitted) return;
-    submitted = true;
+    if (submitted) return; submitted = true;
     wrap.querySelectorAll(".option-btn, .unit-btn, .inline-input, .inline-submit").forEach(el => el.disabled = true);
     addMessage("user", displayText);
-    setTimeout(() => onSubmit(meters), 300);
+    setTimeout(() => onSubmit(meters, displayText), 300);
   };
 
-  const toggleWrap = document.createElement("div");
-  toggleWrap.className = "unit-toggle-wrap";
-  const toggleRow = document.createElement("div");
-  toggleRow.className = "unit-toggle-row";
-  const toggleLabel = document.createElement("span");
-  toggleLabel.className = "unit-toggle-label";
-  toggleLabel.textContent = "Unit:";
-  const toggle = document.createElement("div");
-  toggle.className = "unit-toggle";
-  const btnM = document.createElement("button");
-  btnM.className = "unit-btn active"; btnM.textContent = "Metres";
-  const btnFt = document.createElement("button");
-  btnFt.className = "unit-btn"; btnFt.textContent = "Feet";
+  // Unit toggle
+  const toggleWrap = document.createElement("div"); toggleWrap.className = "unit-toggle-wrap";
+  const toggleRow = document.createElement("div"); toggleRow.className = "unit-toggle-row";
+  const toggleLabel = document.createElement("span"); toggleLabel.className = "unit-toggle-label"; toggleLabel.textContent = "Unit:";
+  const toggle = document.createElement("div"); toggle.className = "unit-toggle";
+  const btnM = document.createElement("button"); btnM.className = "unit-btn active"; btnM.textContent = "Metres";
+  const btnFt = document.createElement("button"); btnFt.className = "unit-btn"; btnFt.textContent = "Feet";
   toggle.appendChild(btnM); toggle.appendChild(btnFt);
   toggleRow.appendChild(toggleLabel); toggleRow.appendChild(toggle);
   toggleWrap.appendChild(toggleRow);
 
-  const grid = document.createElement("div");
-  grid.className = "options-grid";
+  // Option grid
+  const grid = document.createElement("div"); grid.className = "options-grid";
 
   const renderOptions = () => {
     grid.innerHTML = "";
-    const list = currentUnit === "m" ? DISTANCES_M : DISTANCES_FT;
+    const list = type === "bore"
+      ? (currentUnit === "m" ? BORE_M : BORE_FT)
+      : (currentUnit === "m" ? DIST_M : DIST_FT);
     list.forEach(opt => {
       const btn = document.createElement("button");
       btn.className = "option-btn";
       btn.textContent = opt.label;
       btn.onclick = () => {
         btn.classList.add("selected");
-        doSubmit(opt.value, opt.label + (currentUnit === "ft" ? ` (≈${Math.round(opt.value)} m)` : ""));
+        const suffix = currentUnit === "ft" ? ` (≈${Math.round(opt.value)} m)` : "";
+        doSubmit(opt.value, opt.label + suffix);
       };
       grid.appendChild(btn);
     });
   };
 
-  btnM.onclick = () => { if (currentUnit === "m") return; currentUnit = "m"; btnM.classList.add("active"); btnFt.classList.remove("active"); renderOptions(); };
-  btnFt.onclick = () => { if (currentUnit === "ft") return; currentUnit = "ft"; btnFt.classList.add("active"); btnM.classList.remove("active"); renderOptions(); };
+  btnM.onclick = () => { if (currentUnit === "m") return; currentUnit = "m"; btnM.classList.add("active"); btnFt.classList.remove("active"); renderOptions(); updatePlaceholder(); };
+  btnFt.onclick = () => { if (currentUnit === "ft") return; currentUnit = "ft"; btnFt.classList.add("active"); btnM.classList.remove("active"); renderOptions(); updatePlaceholder(); };
   renderOptions();
 
+  // Divider
   const divider = document.createElement("div");
   divider.style.cssText = "display:flex;align-items:center;gap:8px;margin:8px 0 4px;";
   divider.innerHTML = `<div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:11px;color:var(--ink-faint);white-space:nowrap">or enter custom value</span><div style="flex:1;height:1px;background:var(--border)"></div>`;
 
-  const iwrap = document.createElement("div");
-  iwrap.className = "inline-input-wrap";
-  const inp = document.createElement("input");
-  inp.className = "inline-input"; inp.type = "text";
-  const updatePlaceholder = () => { inp.placeholder = currentUnit === "m" ? "e.g. 75 m" : "e.g. 250 ft"; };
+  // Custom input
+  const iwrap = document.createElement("div"); iwrap.className = "inline-input-wrap";
+  const inp = document.createElement("input"); inp.className = "inline-input"; inp.type = "text";
+  const updatePlaceholder = () => {
+    inp.placeholder = type === "bore"
+      ? (currentUnit === "m" ? "e.g. 100 m" : "e.g. 330 ft")
+      : (currentUnit === "m" ? "e.g. 75 m" : "e.g. 250 ft");
+  };
   updatePlaceholder();
-  btnM.addEventListener("click", updatePlaceholder);
-  btnFt.addEventListener("click", updatePlaceholder);
-
-  const submitBtn = document.createElement("button");
-  submitBtn.className = "inline-submit"; submitBtn.textContent = "Submit";
+  const submitBtn = document.createElement("button"); submitBtn.className = "inline-submit"; submitBtn.textContent = "Submit";
 
   const tryText = () => {
-    const raw = inp.value.trim();
-    if (!raw) return;
+    const raw = inp.value.trim(); if (!raw) return;
     const num = parseFloat(raw.replace(/[^\d.]/g, ""));
     if (isNaN(num)) return;
     const meters = currentUnit === "ft" ? num * 0.3048 : num;
     const unit = currentUnit === "m" ? "m" : "ft";
-    doSubmit(meters, `${num} ${unit}${currentUnit === "ft" ? ` (≈${Math.round(meters)} m)` : ""}`);
+    const suffix = currentUnit === "ft" ? ` (≈${Math.round(meters)} m)` : "";
+    doSubmit(meters, `${num} ${unit}${suffix}`);
   };
   submitBtn.onclick = tryText;
   inp.onkeydown = e => { if (e.key === "Enter") tryText(); };
@@ -698,31 +520,21 @@ function addDistanceInput(onSubmit) {
   wrap.appendChild(divider);
   wrap.appendChild(iwrap);
   row.appendChild(av); row.appendChild(wrap);
-  chat.appendChild(row);
-  scrollBottom(row);
+  chat.appendChild(row); scrollBottom(row);
 }
 
 function showTyping() {
   const row = document.createElement("div");
   row.className = "message-row puja"; row.id = "typing-row";
-  const av = document.createElement("div");
-  av.className = "avatar puja"; av.textContent = "P";
-  const wrap = document.createElement("div");
-  wrap.className = "bubble-wrap";
-  const ind = document.createElement("div");
-  ind.className = "typing-indicator";
-  for (let i = 0; i < 3; i++) {
-    const d = document.createElement("div");
-    d.className = "typing-dot"; ind.appendChild(d);
-  }
+  const av = document.createElement("div"); av.className = "avatar puja"; av.textContent = "P";
+  const wrap = document.createElement("div"); wrap.className = "bubble-wrap";
+  const ind = document.createElement("div"); ind.className = "typing-indicator";
+  for (let i = 0; i < 3; i++) { const d = document.createElement("div"); d.className = "typing-dot"; ind.appendChild(d); }
   wrap.appendChild(ind); row.appendChild(av); row.appendChild(wrap);
   chat.appendChild(row); scrollBottom();
 }
-
 function hideTyping() { const t = document.getElementById("typing-row"); if (t) t.remove(); }
-function scrollBottom(targetEl) { const el = targetEl || chat.lastElementChild; if (el) setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "nearest" }), 60); }
 function addDivider(text) { const d = document.createElement("div"); d.className = "chat-divider"; d.innerHTML = `<span>${text}</span>`; chat.appendChild(d); scrollBottom(d); }
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function pujaSpeak(html, ms = 700) {
   showTyping(); await delay(ms); hideTyping();
@@ -730,7 +542,6 @@ async function pujaSpeak(html, ms = 700) {
 }
 
 // ── FLOW ──
-
 async function startFlow() {
   await delay(500);
   await pujaSpeak(`Namaste! 🌿 I'm <strong>JivaBot</strong>, your smart farm device advisor.<br><br>I'll help you find the perfect irrigation device for your field — just answer a few questions and I'll calculate the right recommendation with a confidence score.`);
@@ -763,20 +574,14 @@ async function askHP() {
   await pujaSpeak(`Good choice! What is the <strong>horsepower (HP)</strong> of your ${state.brand} pump?`, 600);
   addOptionsWithTextInput(
     [
-      {label:"3 HP", value:"3"},
-      {label:"5 HP", value:"5"},
-      {label:"7.5 HP", value:"7.5"},
-      {label:"10 HP", value:"10"},
-      {label:"15 HP", value:"15"}
+      {label:"3 HP", value:"3"},{label:"5 HP", value:"5"},{label:"7.5 HP", value:"7.5"},
+      {label:"10 HP", value:"10"},{label:"15 HP", value:"15"}
     ],
     "Enter HP (e.g. 0.5, 1, 2, 3, 5...)",
     async (val) => {
       const hpClean = val.replace(/\s*hp\s*/i, "").trim();
       const hpNum = parseFloat(hpClean);
-      if (isNaN(hpNum) || hpNum <= 0) {
-        await pujaSpeak(`Please enter a valid HP number.`);
-        await askHP(); return;
-      }
+      if (isNaN(hpNum) || hpNum <= 0) { await pujaSpeak(`Please enter a valid HP number.`); await askHP(); return; }
       state.hp = String(hpNum);
       state.step = "resolving";
       await resolvePump();
@@ -787,45 +592,39 @@ async function askHP() {
 async function resolvePump() {
   const data = getPumpData(state.brand, state.pumpType, state.hp);
   if (!data) {
-    await pujaSpeak(`I couldn't find a match for <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> in my database. Let me estimate from nearest data.`);
+    await pujaSpeak(`I couldn't find a match for <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong>. Estimating from nearest data.`);
     state.assumptions.push("model_assumed");
     const hp = parseFloat(state.hp) || 2;
-    const ratedHead = hp * 30; const ratedDischarge = hp * 45;
-    state.pumpData = { ratedHead, ratedDischarge, exact: false };
-    await pujaSpeak(`Using estimated specs — Rated head: <strong>${ratedHead} m</strong>, Discharge: <strong>${ratedDischarge} LPM</strong>.`);
-    addDivider("Field Information");
-    await askBoreDepth(); return;
-  }
-  if (!data.exact) {
-    state.assumptions.push("model_assumed");
-    await pujaSpeak(`Closest match found — <strong>${state.brand} ${data.usedHp} HP ${state.pumpType}</strong> (assumed). Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+    state.pumpData = { ratedHead: hp * 30, ratedDischarge: hp * 45, exact: false };
+    await pujaSpeak(`Using estimated specs — Rated head: <strong>${state.pumpData.ratedHead} m</strong>, Discharge: <strong>${state.pumpData.ratedDischarge} LPM</strong>.`);
   } else {
-    await pujaSpeak(`Found it! <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> — Rated head: <strong>${data.ratedHead} m</strong>, Rated discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+    if (!data.exact) {
+      state.assumptions.push("model_assumed");
+      await pujaSpeak(`Closest match: <strong>${state.brand} ${data.usedHp} HP ${state.pumpType}</strong> (assumed). Head: <strong>${data.ratedHead} m</strong>, Discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+    } else {
+      await pujaSpeak(`Found it! <strong>${state.brand} ${state.hp} HP ${state.pumpType}</strong> — Head: <strong>${data.ratedHead} m</strong>, Discharge: <strong>${data.ratedDischarge} LPM</strong>.`);
+    }
+    state.pumpData = data;
   }
-  state.pumpData = data;
   addDivider("Field Information");
   await delay(300);
   await askBoreDepth();
 }
 
 async function askBoreDepth() {
-  await pujaSpeak(`What is the <strong>bore depth</strong> (depth of your borewell)?`, 600);
-  addOptions([{label:"60 m",value:"60"},{label:"90 m",value:"90"},{label:"120 m",value:"120"},{label:"150 m",value:"150"},{label:"Other",value:"other"}], async (val) => {
-    if (val === "other") {
-      await pujaSpeak(`Please type the exact bore depth in metres:`);
-      addInlineInput("e.g. 135", "m", async (v) => {
-        const n = parseFloat(v);
-        if (isNaN(n)) { await pujaSpeak(`Please enter a number in metres.`); return; }
-        state.boreDepth = n; await askDistance();
-      });
-    } else { state.boreDepth = parseFloat(val); await askDistance(); }
+  await pujaSpeak(`What is the <strong>bore depth</strong> (depth of your borewell)?<br><small style="color:var(--ink-faint)">Toggle between metres and feet, or enter a custom value</small>`, 600);
+  addDepthDistanceInput("bore", async (meters, displayText) => {
+    state.boreDepth = meters;
+    state.boreDepthDisplay = displayText;
+    await askDistance();
   });
 }
 
 async function askDistance() {
-  await pujaSpeak(`What is the <strong>distance from the pump to the field</strong>?<br><small style="color:var(--ink-faint)">Toggle between metres and feet, or type a custom value</small>`, 600);
-  addDistanceInput(async (meters) => {
+  await pujaSpeak(`What is the <strong>distance from the pump to the field</strong>?<br><small style="color:var(--ink-faint)">Toggle between metres and feet, or enter a custom value</small>`, 600);
+  addDepthDistanceInput("distance", async (meters, displayText) => {
     state.distance = meters;
+    state.distanceDisplay = displayText;
     await askPipeDia();
   });
 }
@@ -865,48 +664,42 @@ async function computeAndShow() {
 
   state.lastRec = { device, lph, tdh, confidence, confLabel, staticHead, frictionLoss, minorLoss, perfNote };
 
-  const devicePrices = { "Vipasa": 18500, "Jhanavi": 34000, "Dihanga": 52000 };
+  const devicePrices = { "Vipasa": 18500, "Jahnavi": 34000, "Dihanga": 52000 };
   const price = devicePrices[device.name] || 30000;
-
-  const emiPlans = [
-    { months: 3, rate: 0, label: "No-cost EMI" },
-    { months: 6, rate: 9, label: "6 months" },
-    { months: 12, rate: 11, label: "12 months" },
-    { months: 24, rate: 13, label: "24 months" }
-  ].map(p => {
-    const monthly = p.rate === 0
-      ? Math.round(price / p.months)
-      : Math.round(price * (p.rate/1200) * Math.pow(1+p.rate/1200, p.months) / (Math.pow(1+p.rate/1200, p.months)-1));
-    const total = monthly * p.months;
-    return { ...p, monthly, total };
-  });
-
   const cardId = "rc_" + Date.now();
 
-  // ── PROPOSAL DATA to inject into iframe ──
-  const proposalData = {
-    device: device.name + " " + device.size,
-    deviceName: device.name,
-    deviceSize: device.size,
-    flowRate: lph.toLocaleString() + " LPH",
-    tdh: Math.round(tdh) + " m",
-    staticHead: Math.round(staticHead) + " m",
-    frictionLoss: Math.round(frictionLoss) + " m",
-    minorLoss: Math.round(minorLoss) + " m",
-    confidence: confidence + "% — " + confLabel,
-    price: "₹" + price.toLocaleString(),
-    brand: state.brand,
-    hp: state.hp,
-    pumpType: state.pumpType,
-    boreDepth: state.boreDepth + " m",
-    distance: Math.round(state.distance) + " m",
-    pipeDiameter: state.pipeDiameter + " inch",
-    perfNote: perfNote,
-    date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })
+  // ── PDF DATA — all fields captured from chat ──
+  const pdfData = {
+    // Pump details
+    pumpName:       `${state.brand} ${state.pumpType}`,
+    pumpHP:         `${state.hp} HP`,
+    pumpFull:       `${state.brand} ${state.hp} HP ${state.pumpType}`,
+    // Field inputs (from chat, using display labels)
+    boreDepth:      state.boreDepthDisplay || (state.boreDepth + " m"),
+    distanceToField:state.distanceDisplay  || (Math.round(state.distance) + " m"),
+    pipeDiameter:   state.pipeDiameter + " inch",
+    // Calculated values
+    staticHead:     Math.round(staticHead) + " m",
+    frictionLoss:   Math.round(frictionLoss) + " m",
+    minorLoss:      Math.round(minorLoss) + " m",
+    tdh:            Math.round(tdh) + " m",
+    effectiveDischarge: lph.toLocaleString() + " LPH",
+    // Recommendation
+    jivaDevice:     device.name + " " + device.size,
+    deviceName:     device.name,
+    deviceSize:     device.size,
+    // Meta
+    confidence:     confidence + "% — " + confLabel,
+    price:          "₹" + price.toLocaleString(),
+    date:           new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }),
+    perfNote:       perfNote
   };
 
   const card = document.createElement("div");
   card.className = "message-row puja";
+  card.id = cardId + "-row";
+  card.dataset.pdf = JSON.stringify(pdfData);
+
   card.innerHTML = `
     <div class="avatar puja">P</div>
     <div class="bubble-wrap" style="max-width:92%">
@@ -918,22 +711,12 @@ async function computeAndShow() {
         </div>
 
         <div class="result-tabs">
-          <button class="result-tab active" onclick="switchTab('${cardId}','summary')">
-            <span class="tab-icon">📊</span><span class="tab-label">Summary</span>
-          </button>
-          <button class="result-tab" onclick="switchTab('${cardId}','faq')">
-            <span class="tab-icon">💬</span><span class="tab-label">FAQ</span>
-          </button>
-          <button class="result-tab" onclick="switchTab('${cardId}','payments')">
-            <span class="tab-icon">💳</span><span class="tab-label">Payments</span>
-          </button>
-          <button class="result-tab" onclick="switchTab('${cardId}','pdf')">
-            <span class="tab-icon">📄</span><span class="tab-label">Download PDF</span>
-          </button>
+          <button class="result-tab active" onclick="switchTab('${cardId}','summary')"><span class="tab-icon">📊</span><span class="tab-label">Summary</span></button>
+          <button class="result-tab" onclick="switchTab('${cardId}','faq')"><span class="tab-icon">💬</span><span class="tab-label">FAQ</span></button>
+          <button class="result-tab" onclick="switchTab('${cardId}','pdf')"><span class="tab-icon">📄</span><span class="tab-label">PDF</span></button>
         </div>
 
         <!-- Summary Tab -->
-        <!-- CHANGE 1: "Start over" removed from result-actions; moved outside card below -->
         <div class="tab-content active" id="${cardId}-summary">
           <div class="metrics-row">
             <div class="metric-box"><div class="metric-val">${lph.toLocaleString()}</div><div class="metric-label">LPH Flow</div></div>
@@ -951,7 +734,7 @@ async function computeAndShow() {
             <strong>How we got here:</strong> Borewell static head ${Math.round(staticHead)} m + friction loss ${Math.round(frictionLoss)} m + minor losses ${Math.round(minorLoss)} m = TDH ${Math.round(tdh)} m. ${perfNote} Effective discharge is <strong>${lph.toLocaleString()} LPH</strong>, matching the <strong>${device.name}</strong>.
           </div>
           <div class="result-actions">
-            <button class="action-btn primary" onclick="orderDevice('${device.name}')">Order ${device.name}</button>
+            <button class="action-btn primary" onclick="proceedPayment('${device.name}')">Order ${device.name}</button>
             <button class="action-btn secondary" onclick="askMoreQuestions()">Ask more questions</button>
           </div>
         </div>
@@ -961,38 +744,14 @@ async function computeAndShow() {
           ${buildFAQ(device.name, lph, tdh, state.hp, state.brand)}
         </div>
 
-        <!-- Payments Tab -->
-        <div class="tab-content" id="${cardId}-payments">
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <div style="font-size:13px;color:var(--ink-muted);">Select your preferred payment method for the <strong>${device.name}</strong> (Est. ₹${price.toLocaleString()}).</div>
-            <div onclick="selectPayment(this,'razorpay')" class="payment-option">
-              <div class="payment-icon">⚡</div>
-              <div class="payment-info">
-                <h4>Razorpay — Instant Payment</h4>
-                <p>UPI, Net Banking, Credit/Debit Card. Payment confirmed within minutes.</p>
-                <span class="payment-badge">Most Popular</span>
-              </div>
-            </div>
-            
-            <button class="action-btn primary" style="margin-top:4px" onclick="proceedPayment('${device.name}')">Proceed to Payment</button>
-          </div>
-        </div>
-
-        <!-- CHANGE 2 & 3 & 4: PDF Tab — iframe preview with data injection + Export button -->
+        <!-- PDF Tab — inline document from chat data -->
         <div class="tab-content" id="${cardId}-pdf">
           <div class="pdf-preview-wrap">
             <div class="pdf-preview-toolbar">
-              <span class="pdf-preview-title">📄 Proposal Preview — ${device.name}</span>
-              <button class="action-btn primary pdf-export-btn" onclick="exportProposalPDF('${cardId}-proposalFrame')">⬇ Export to PDF</button>
+              <span class="pdf-preview-title">📄 Proposal — ${device.name} ${device.size}</span>
+              <button class="action-btn primary pdf-export-btn" onclick="printPDF('${cardId}')">⬇ Export / Print</button>
             </div>
-            <div class="pdf-iframe-scaler">
-              <iframe
-                id="${cardId}-proposalFrame"
-                src="proposal-template.html"
-                class="pdf-iframe"
-                onload="injectProposalData('${cardId}-proposalFrame', '${cardId}')"
-              ></iframe>
-            </div>
+            ${buildPDFDoc(pdfData, cardId)}
           </div>
         </div>
 
@@ -1000,13 +759,9 @@ async function computeAndShow() {
     </div>
   `;
 
-  // Store proposal data on the card element for retrieval by injectProposalData
-  card.dataset.proposal = JSON.stringify(proposalData);
-  card.id = cardId + "-row";
-
   chat.appendChild(card);
 
-  // CHANGE 1: "Start over" button appended OUTSIDE the result-card, after the card row
+  // Start-over button outside card
   const restartWrap = document.createElement("div");
   restartWrap.className = "restart-btn-outer";
   restartWrap.innerHTML = `<button class="action-btn secondary" onclick="restartFlow()">↩ Start over</button>`;
@@ -1017,50 +772,114 @@ async function computeAndShow() {
   userInput.placeholder = "Ask a follow-up question...";
 }
 
-// CHANGE 4: Inject proposal data into iframe via fillProposal()
-function injectProposalData(frameId, cardId) {
-  const frame = document.getElementById(frameId);
-  if (!frame) return;
+// ── BUILD PDF DOCUMENT (inline HTML from chat data) ──
+function buildPDFDoc(d, cardId) {
+  return `
+  <div class="pdf-doc" id="${cardId}-pdfdoc">
+    <div class="pdf-header">
+      <div>
+        <img src="assets/logo.png" alt="JivaBot" class="pdf-logo" />
+        <div class="pdf-brand-sub">Farm Device Proposal</div>
+      </div>
+      <div class="pdf-date">
+        <div style="font-weight:600;font-size:12px;color:var(--ink);">${d.date}</div>
+        <div style="margin-top:2px;">Ref: JB-${Date.now().toString().slice(-6)}</div>
+      </div>
+    </div>
 
-  // Retrieve proposal data stored on the card's parent row element
-  const cardRow = document.getElementById(cardId + "-row");
-  let data = {};
-  if (cardRow && cardRow.dataset.proposal) {
-    try { data = JSON.parse(cardRow.dataset.proposal); } catch(e) {}
-  }
+    <div class="pdf-device-box">
+      <div style="font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px;">Recommended Jiva Device</div>
+      <div class="pdf-device-name">${d.deviceName} <span style="opacity:.7;font-size:18px">${d.deviceSize}</span></div>
+      <div class="pdf-device-sub">JivaBot Irrigation Device · Est. ${d.price}</div>
+      <div class="pdf-confidence" style="margin-top:10px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:.9;">
+          <span>Confidence Score</span><span style="font-weight:600;">${d.confidence}</span>
+        </div>
+        <div class="pdf-conf-bar">
+          <div class="pdf-conf-fill" style="width:${parseInt(d.confidence)}%"></div>
+        </div>
+      </div>
+    </div>
 
-  // Try calling fillProposal inside the iframe
-  try {
-    if (frame.contentWindow && typeof frame.contentWindow.fillProposal === "function") {
-      frame.contentWindow.fillProposal(data);
-    }
-  } catch(e) {
-    // Cross-origin or not yet ready — silently ignore
-    console.warn("Could not inject proposal data:", e);
-  }
+    <div class="pdf-section">
+      <div class="pdf-section-label">1. Pump Details</div>
+      <div class="pdf-row"><span class="pdf-label">Pump Name / Make</span><span class="pdf-value">${d.pumpName}</span></div>
+      <div class="pdf-row"><span class="pdf-label">HP Rating</span><span class="pdf-value">${d.pumpHP}</span></div>
+    </div>
+
+    <div class="pdf-section">
+      <div class="pdf-section-label">2. Field Inputs</div>
+      <div class="pdf-row"><span class="pdf-label">Bore Depth</span><span class="pdf-value">${d.boreDepth}</span></div>
+      <div class="pdf-row"><span class="pdf-label">Distance to Field</span><span class="pdf-value">${d.distanceToField}</span></div>
+      <div class="pdf-row"><span class="pdf-label">Pipe Diameter</span><span class="pdf-value">${d.pipeDiameter}</span></div>
+    </div>
+
+    <div class="pdf-section">
+      <div class="pdf-section-label">3. Calculated Values</div>
+      <div class="pdf-row"><span class="pdf-label">Static Head</span><span class="pdf-value">${d.staticHead}</span></div>
+      <div class="pdf-row"><span class="pdf-label">Friction Loss</span><span class="pdf-value">${d.frictionLoss}</span></div>
+      <div class="pdf-row"><span class="pdf-label">Minor Losses</span><span class="pdf-value">${d.minorLoss}</span></div>
+      <div class="pdf-row"><span class="pdf-label">Total Dynamic Head (TDH)</span><span class="pdf-value">${d.tdh}</span></div>
+      <div class="pdf-row" style="background:var(--sage-light);border-radius:6px;padding:8px 0;margin-top:4px;">
+        <span class="pdf-label" style="font-weight:700;color:var(--sage);padding-left:8px;">Effective Discharge</span>
+        <span class="pdf-value" style="font-size:14px;color:var(--sage);padding-right:8px;">${d.effectiveDischarge}</span>
+      </div>
+    </div>
+
+    <div class="pdf-section" style="background:var(--earth-light);border-radius:10px;padding:12px 14px;">
+      <div class="pdf-section-label" style="margin-bottom:6px;">Performance Note</div>
+      <div style="font-size:12px;color:var(--ink-muted);line-height:1.6;">${d.perfNote}</div>
+    </div>
+
+    <div class="pdf-footer">
+      JivaBot · Powered by Anthropic · This proposal is auto-generated based on inputs provided. Verify with a certified engineer before purchase.
+    </div>
+  </div>`;
 }
 
-// CHANGE 3: Export iframe contents to PDF via browser print
-function exportProposalPDF(frameId) {
-  const frame = document.getElementById(frameId);
-  if (!frame || !frame.contentWindow) return;
-  try {
-    frame.contentWindow.focus();
-    frame.contentWindow.print();
-  } catch(e) {
-    // Fallback: open template in new tab for printing
-    window.open("proposal-template.html", "_blank");
-  }
+// ── PRINT PDF ──
+function printPDF(cardId) {
+  const docEl = document.getElementById(cardId + "-pdfdoc");
+  if (!docEl) return;
+  const win = window.open("", "_blank");
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <title>JivaBot Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0;}
+      body{font-family:'DM Sans',sans-serif;background:#fff;color:#1c1c1a;padding:32px;}
+      .pdf-doc{max-width:680px;margin:0 auto;}
+      .pdf-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #4a7c59;padding-bottom:16px;margin-bottom:20px;}
+      .pdf-logo{height:40px;width:auto;display:block;object-fit:contain;object-position:left center;}
+      .pdf-brand-sub{font-size:11px;color:#9a9a92;text-transform:uppercase;letter-spacing:.6px;margin-top:4px;}
+      .pdf-date{font-size:12px;color:#9a9a92;text-align:right;}
+      .pdf-device-box{background:linear-gradient(135deg,#4a7c59,#7aaa8a);color:white;border-radius:12px;padding:16px 20px;margin:16px 0;}
+      .pdf-device-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;}
+      .pdf-device-sub{font-size:12px;opacity:.8;margin-top:4px;}
+      .pdf-conf-bar{height:6px;background:rgba(255,255,255,.3);border-radius:100px;overflow:hidden;margin-top:4px;}
+      .pdf-conf-fill{height:100%;background:white;border-radius:100px;}
+      .pdf-section{margin-bottom:18px;}
+      .pdf-section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#4a7c59;border-bottom:1px solid #d4e8da;padding-bottom:4px;margin-bottom:10px;}
+      .pdf-row{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid #f0f0ec;}
+      .pdf-row:last-child{border-bottom:none;}
+      .pdf-label{color:#9a9a92;font-size:12px;}
+      .pdf-value{font-weight:600;color:#1c1c1a;font-size:12px;text-align:right;}
+      .pdf-footer{border-top:1px solid rgba(28,28,26,.1);padding-top:12px;margin-top:8px;font-size:11px;color:#9a9a92;text-align:center;}
+      @media print{body{padding:20px;} @page{size:A4;margin:15mm;}}
+    </style>
+  </head><body>${docEl.outerHTML}</body></html>`);
+  win.document.close();
+  setTimeout(() => { win.focus(); win.print(); }, 600);
 }
 
 function buildFAQ(deviceName, lph, tdh, hp, brand) {
   const faqs = [
-    { q: `Why was the ${deviceName} recommended?`, a: `The ${deviceName} is matched to your calculated flow rate of ${lph.toLocaleString()} LPH. Each device in the JivaBot line covers a specific flow range — Vipasa up to 9,000 LPH, Jhanavi up to 30,000 LPH, and Dihanga up to 50,000 LPH.` },
-    { q: "What does TDH mean?", a: `Total Dynamic Head (TDH = ${Math.round(tdh)} m in your case) is the total pressure your pump must overcome — including the static depth of the bore, friction in pipes, and minor fittings losses. A higher TDH reduces the effective discharge.` },
-    { q: "Can I use the device with a different pump?", a: `Yes, the ${deviceName} is compatible with any pump achieving a similar discharge (${lph.toLocaleString()} LPH ± 20%). If you upgrade or change your pump, we recommend re-running the calculation.` },
-    { q: "What is the installation time?", a: `Standard installation takes 4–8 hours depending on field layout and pipe routing. JivaBot offers on-site installation support in most districts — contact your local dealer for availability.` },
-    { q: "Is this suitable for drip irrigation?", a: `Yes. The ${deviceName} is designed to integrate with drip, sprinkler, and flood irrigation systems. The appropriate device size ensures stable pressure for drip emitters and sprinkler heads.` },
-    { q: "What warranty is offered?", a: `All JivaBot devices come with a 2-year manufacturing warranty and optional extended warranty of 3+2 years. Covers defects in materials and workmanship under normal field conditions.` }
+    { q: `Why was the ${deviceName} recommended?`, a: `The ${deviceName} is matched to your calculated flow rate of ${lph.toLocaleString()} LPH. Each JivaBot device covers a specific range — Vipasa up to 9,000 LPH, Jahnavi up to 30,000 LPH, and Dihanga up to 50,000 LPH.` },
+    { q: "What does TDH mean?", a: `Total Dynamic Head (TDH = ${Math.round(tdh)} m) is the total pressure your pump must overcome — static bore depth, pipe friction, and minor fitting losses. A higher TDH reduces effective discharge.` },
+    { q: "Can I use the device with a different pump?", a: `Yes, the ${deviceName} is compatible with any pump achieving a similar discharge (${lph.toLocaleString()} LPH ± 20%). If you change your pump, re-run this calculation.` },
+    { q: "What is the installation time?", a: `Standard installation takes 4–8 hours. JivaBot offers on-site support in most districts — contact your local dealer for availability.` },
+    { q: "Is this suitable for drip irrigation?", a: `Yes. The ${deviceName} integrates with drip, sprinkler, and flood systems, ensuring stable pressure for drip emitters and sprinkler heads.` },
+    { q: "What warranty is offered?", a: `All JivaBot devices include a 2-year manufacturing warranty with an optional 3+2 extended plan. Covers defects under normal field conditions.` }
   ];
   return faqs.map(f => `
     <div class="faq-item">
@@ -1073,10 +892,9 @@ function buildFAQ(deviceName, lph, tdh, hp, brand) {
 }
 
 function toggleFAQ(btn) {
-  const ans = btn.nextElementSibling;
   const isOpen = btn.classList.contains("open");
   btn.classList.toggle("open", !isOpen);
-  ans.classList.toggle("open", !isOpen);
+  btn.nextElementSibling.classList.toggle("open", !isOpen);
   btn.setAttribute("aria-expanded", String(!isOpen));
 }
 
@@ -1084,9 +902,8 @@ function switchTab(cardId, tab) {
   const card = document.getElementById(cardId);
   card.querySelectorAll(".result-tab").forEach(t => t.classList.remove("active"));
   card.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-  const tabs = card.querySelectorAll(".result-tab");
   const tabMap = ["summary","faq","payments","pdf"];
-  tabs[tabMap.indexOf(tab)]?.classList.add("active");
+  card.querySelectorAll(".result-tab")[tabMap.indexOf(tab)]?.classList.add("active");
   const content = document.getElementById(`${cardId}-${tab}`);
   if (content) content.classList.add("active");
 }
@@ -1096,26 +913,23 @@ function selectPayment(el, method) {
   el.closest(".result-card").querySelectorAll(".payment-option").forEach(p => p.classList.remove("selected"));
   el.classList.add("selected");
   selectedPaymentMethod = method;
-  const emiTable = el.closest(".result-card").querySelector("[id$='-emi-table']");
-  if (emiTable) emiTable.style.display = method === "emi" ? "block" : "none";
 }
 
 function proceedPayment(name) {
   const method = selectedPaymentMethod || "online";
   addMessage("user", `Proceed to payment for ${name} via ${method}`);
-  pujaSpeak(`Great! Initiating <strong> Razorpay </strong> payment for the <strong>${name}</strong>. Our team will contact you shortly to finalise and confirm your order. 🌿`);
-
-  window.open('https://pages.razorpay.com/jwfd1'+name.toLowerCase(), '_blank');
+  pujaSpeak(`Great! Initiating <strong>Razorpay</strong> payment for the <strong>${name}</strong>. Our team will contact you shortly to finalise and confirm your order. 🌿`);
+  window.open('https://pages.razorpay.com/jwfd1' + name.toLowerCase(), '_blank');
 }
 
-function orderDevice(name) {
-  addMessage("user", `I'd like to order the ${name}`);
-  pujaSpeak(`Excellent choice! 🌿 Redirecting you to the <strong>${name}</strong> order page. Our team will get in touch with you shortly to confirm the details and arrange delivery.`);
-}
+// function orderDevice(name) {
+//   addMessage("user", `I'd like to order the ${name}`);
+//   pujaSpeak(`Excellent choice! 🌿 Redirecting you to the <strong>${name}</strong> order page. Our team will get in touch to confirm details and arrange delivery.`);
+// }
 
 function askMoreQuestions() {
   addMessage("user", "I have more questions");
-  pujaSpeak(`Of course! Feel free to ask me anything about the recommendation, the device specifications, or your field setup. I'm here to help.`);
+  pujaSpeak(`Of course! Feel free to ask me anything about the recommendation, device specs, or your field setup.`);
   state.step = "freeform";
   userInput.placeholder = "Ask me anything...";
   userInput.focus();
@@ -1123,21 +937,20 @@ function askMoreQuestions() {
 
 function restartFlow() {
   addMessage("user", "Start over");
-  Object.assign(state, { step:"start", pumpType:null, brand:null, hp:null, pumpData:null, boreDepth:null, distance:null, pipeDiameter:null, assumptions:[], conversationHistory:[], lastRec:null });
+  Object.assign(state, { step:"start", pumpType:null, brand:null, hp:null, pumpData:null, boreDepth:null, boreDepthDisplay:null, distance:null, distanceDisplay:null, pipeDiameter:null, assumptions:[], conversationHistory:[], lastRec:null });
   addDivider("New Session");
   startFlow();
 }
 
 // ── FREEFORM AI ──
-
 async function handleFreeform(text) {
   showTyping();
   state.conversationHistory.push({ role: "user", content: text });
-  const context = `You are JivaBot, a friendly and knowledgeable farm device advisor. The user has completed a device recommendation session:
+  const context = `You are JivaBot, a friendly farm device advisor. The user has completed a recommendation session:
 - Pump: ${state.brand || "unknown"} ${state.hp || ""}HP ${state.pumpType || ""}
-- Bore depth: ${state.boreDepth}m, Distance to field: ${state.distance}m, Pipe: ${state.pipeDiameter} inch
-- Recommended device: ${state.lastRec ? state.lastRec.device.name + ' ' + state.lastRec.device.size + ', flow ' + state.lastRec.lph + ' LPH, TDH ' + Math.round(state.lastRec.tdh) + 'm' : 'see earlier calculation'}
-Answer follow-up questions helpfully. Stay focused on farm irrigation and the JivaBot product line (Vipasa 1", Jhanavi 2", Dihanga 3").`;
+- Bore depth: ${state.boreDepthDisplay || state.boreDepth + "m"}, Distance: ${state.distanceDisplay || state.distance + "m"}, Pipe: ${state.pipeDiameter} inch
+- Recommended device: ${state.lastRec ? state.lastRec.device.name + " " + state.lastRec.device.size + ", flow " + state.lastRec.lph + " LPH, TDH " + Math.round(state.lastRec.tdh) + "m" : "see earlier calculation"}
+Answer follow-up questions helpfully. Stay focused on farm irrigation and the JivaBot product line (Vipasa 1", Jahnavi 2", Dihanga 3").`;
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -1154,8 +967,6 @@ Answer follow-up questions helpfully. Stay focused on farm irrigation and the Ji
     addMessage("puja", "Sorry, I couldn't reach the AI right now. Please try again in a moment.");
   }
 }
-
-// ── SEND HANDLER ──
 
 async function handleSend() {
   const text = userInput.value.trim();
